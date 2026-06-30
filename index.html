@@ -39,16 +39,14 @@
   @media (max-width: 600px) { .charts-grid { grid-template-columns: 1fr; } }
   .note { font-size: 12px; color: #898781; border-top: 0.5px solid rgba(11,11,11,0.08); padding-top: 1rem; margin-top: 0.5rem; }
   .updated { font-size: 11px; color: #b4b2a9; margin-top: 4px; }
-  .legend { display: flex; gap: 16px; margin-bottom: 0.75rem; font-size: 12px; color: #52514e; }
+  .legend { display: flex; gap: 16px; margin-bottom: 0.75rem; font-size: 12px; color: #52514e; flex-wrap: wrap; }
   .legend-item { display: flex; align-items: center; gap: 4px; }
-  .legend-dot { width: 10px; height: 10px; border-radius: 2px; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
   .vs-card { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.25rem; }
   .vs-block { text-align: center; flex: 1; }
   .vs-label { font-size: 12px; color: #898781; margin-bottom: 4px; }
   .vs-val { font-size: 22px; font-weight: 500; }
   .vs-div { width: 0.5px; background: rgba(11,11,11,0.1); align-self: stretch; margin: 0 1rem; }
-  .alpha-banner { text-align: center; font-size: 13px; color: #52514e; padding: 0.5rem 0 0; }
-  .gap-fill { fill: rgba(42,120,214,0.06); }
   .alpha-chip { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; padding: 2px 8px; border-radius: 6px; font-weight: 500; margin-left: 6px; }
   .alpha-chip.pos { background: #EAF3DE; color: #27500A; }
   .alpha-chip.neg { background: #FCEBEB; color: #791F1F; }
@@ -68,35 +66,35 @@
 <body>
 <div class="container">
 
-  <h1>Portfolio tracker <span class="day-pill" id="dayLabel">Day 1 — Jun 30</span></h1>
+  <h1>Portfolio tracker <span class="day-pill">Day 2 — Jul 1</span></h1>
   <p class="subtitle">StockTrak · NUS BMA5309 · $100M virtual fund · Long-only · Benchmark: iShares MSCI ACWI ETF (ACWI)</p>
 
   <div class="kpi-grid">
-    <div class="kpi"><div class="kpi-label">Portfolio value</div><div class="kpi-val" id="kpiValue">$101,336,714</div></div>
-    <div class="kpi"><div class="kpi-label">Total P&amp;L</div><div class="kpi-val pos" id="kpiPL">+$1,336,714</div></div>
-    <div class="kpi"><div class="kpi-label">Total return</div><div class="kpi-val pos" id="kpiReturn">+1.34%</div></div>
-    <div class="kpi"><div class="kpi-label">Cash balance</div><div class="kpi-val" id="kpiCash">$927,426</div></div>
+    <div class="kpi"><div class="kpi-label">Portfolio value</div><div class="kpi-val">$104,272,296</div></div>
+    <div class="kpi"><div class="kpi-label">Total P&amp;L</div><div class="kpi-val pos">+$4,272,296</div></div>
+    <div class="kpi"><div class="kpi-label">Total return</div><div class="kpi-val pos">+4.27%</div></div>
+    <div class="kpi"><div class="kpi-label">Cash balance</div><div class="kpi-val">$927,503</div></div>
   </div>
 
   <div class="sec">Vs. benchmark — MSCI ACWI ETF (ACWI)</div>
   <div class="card vs-card">
     <div class="vs-block">
       <div class="vs-label">Our portfolio</div>
-      <div class="vs-val pos" id="ourReturn">+1.34%</div>
+      <div class="vs-val pos">+4.27%</div>
     </div>
     <div class="vs-div"></div>
     <div class="vs-block">
       <div class="vs-label">MSCI ACWI ETF</div>
-      <div class="vs-val pos" id="benchReturn">+1.00%</div>
+      <div class="vs-val pos">+1.74%</div>
     </div>
     <div class="vs-div"></div>
     <div class="vs-block">
-      <div class="vs-label">Alpha</div>
-      <div class="vs-val pos" id="alphaVal">+0.34%</div>
+      <div class="vs-label">Cumulative alpha</div>
+      <div class="vs-val pos">+2.53%</div>
     </div>
   </div>
 
-  <div class="sec">Class rankings <span style="text-transform:none;font-weight:400;color:#b8860b">🏆 Currently #1</span></div>
+  <div class="sec">Class rankings <span style="text-transform:none;font-weight:400;color:#b8860b">🏆 Still #1 — leading by +1.63%</span></div>
   <div class="card">
     <div class="rank-table-wrap">
     <table class="rank-table">
@@ -117,10 +115,10 @@
   <div class="sec">Class rankings — return history (all groups)</div>
   <div class="chart-card">
     <div class="rank-legend" id="rankLegend"></div>
-    <div class="chart-wrap"><canvas id="rankChart" role="img" aria-label="Cumulative return history for all groups in the class"></canvas></div>
+    <div class="chart-wrap"><canvas id="rankChart"></canvas></div>
   </div>
 
-  <div class="sec">Holdings</div>
+  <div class="sec">Holdings — Jul 1, 2026</div>
   <div class="card">
     <table>
       <colgroup>
@@ -134,8 +132,7 @@
           <th style="text-align:right">P&amp;L (%)</th>
         </tr>
       </thead>
-      <tbody id="holdingsBody">
-      </tbody>
+      <tbody id="holdingsBody"></tbody>
     </table>
   </div>
 
@@ -145,7 +142,7 @@
       <span class="legend-item"><span class="legend-dot" style="background:#2a78d6"></span>Our portfolio (cumulative %)</span>
       <span class="legend-item"><span class="legend-dot" style="background:#898781"></span>MSCI ACWI ETF (cumulative %)</span>
     </div>
-    <div class="chart-wrap"><canvas id="vsChart" role="img" aria-label="Cumulative return comparison: our portfolio vs MSCI ACWI ETF"></canvas></div>
+    <div class="chart-wrap"><canvas id="vsChart"></canvas></div>
     <div id="dailyAlphaRow" style="margin-top:0.75rem;font-size:12px;color:#52514e"></div>
   </div>
 
@@ -153,65 +150,47 @@
   <div class="charts-grid">
     <div class="chart-card">
       <div style="font-size:13px;font-weight:500;color:#52514e;margin-bottom:0.75rem">Portfolio value (M$)</div>
-      <div class="chart-wrap"><canvas id="valueChart" role="img" aria-label="Portfolio value over time"></canvas></div>
+      <div class="chart-wrap"><canvas id="valueChart"></canvas></div>
     </div>
     <div class="chart-card">
       <div style="font-size:13px;font-weight:500;color:#52514e;margin-bottom:0.75rem">Daily P&amp;L (M$)</div>
-      <div class="chart-wrap"><canvas id="plChart" role="img" aria-label="Daily P&L history"></canvas></div>
+      <div class="chart-wrap"><canvas id="plChart"></canvas></div>
     </div>
   </div>
 
-  <p class="note">Data sourced from StockTrak dashboard and Yahoo Finance (ACWI ETF). Benchmark uses price return (not total return). Values updated daily.</p>
-  <p class="updated">Last updated: Jun 30, 2026</p>
-
+  <p class="note">Data sourced from StockTrak dashboard and Yahoo Finance (ACWI ETF). Benchmark uses price return. Values updated daily.</p>
+  <p class="updated">Last updated: Jul 1, 2026</p>
 </div>
 
 <script>
-// Each entry in rankingsHistory = one day's snapshot for ALL groups.
-// To add a new day: copy the most recent block, update the date label and each group's numbers, push it to the array.
+// ── RANKINGS HISTORY ──────────────────────────────────────────────
 const rankingsHistory = [
   {
     date: 'Jun 30',
     groups: [
-      { rank: 1, name: 'GROUP-8 (us)', mktValue: 100409287.20, portValue: 101336713.51, trades: 13, ret: 1.34, isUs: true },
-      { rank: 2, name: 'group5_hew',   mktValue: 75607738.56,  portValue: 101073888.76, trades: 3,  ret: 1.07, isUs: false },
-      { rank: 3, name: 'Group7',       mktValue: 99805575.37,  portValue: 100818439.86, trades: 4,  ret: 0.82, isUs: false },
-      { rank: 4, name: 'wesleyqie',    mktValue: 100596037.03, portValue: 100616114.79, trades: 9,  ret: 0.62, isUs: false },
-      { rank: 5, name: 'GROUP-9',      mktValue: 25114550.76,  portValue: 100147642.44, trades: 2,  ret: 0.15, isUs: false },
-      { rank: 6, name: 'Group_1',      mktValue: 52296632.64,  portValue: 100066808.87, trades: 17, ret: 0.07, isUs: false },
-      { rank: 7, name: 'Group_2',      mktValue: 114880.00,    portValue: 100022529.56, trades: 1,  ret: 0.02, isUs: false },
+      { rank:1, name:'GROUP-8 (us)', mktValue:100409287.20, portValue:101336713.51, trades:13, ret:1.34, isUs:true },
+      { rank:2, name:'group5_hew',   mktValue:75607738.56,  portValue:101073888.76, trades:3,  ret:1.07, isUs:false },
+      { rank:3, name:'Group7',       mktValue:99805575.37,  portValue:100818439.86, trades:4,  ret:0.82, isUs:false },
+      { rank:4, name:'wesleyqie',    mktValue:100596037.03, portValue:100616114.79, trades:9,  ret:0.62, isUs:false },
+      { rank:5, name:'GROUP-9',      mktValue:25114550.76,  portValue:100147642.44, trades:2,  ret:0.15, isUs:false },
+      { rank:6, name:'Group_1',      mktValue:52296632.64,  portValue:100066808.87, trades:17, ret:0.07, isUs:false },
+      { rank:7, name:'Group_2',      mktValue:114880.00,    portValue:100022529.56, trades:1,  ret:0.02, isUs:false },
     ]
   },
-  // Add Day 2 here, e.g.:
-  // {
-  //   date: 'Jul 1',
-  //   groups: [
-  //     { rank: 1, name: 'GROUP-8 (us)', mktValue: ..., portValue: ..., trades: ..., ret: ..., isUs: true },
-  //     ...
-  //   ]
-  // },
+  {
+    date: 'Jul 1',
+    groups: [
+      { rank:1, name:'GROUP-8 (us)', mktValue:103344793.20, portValue:104272295.74, trades:13, ret:4.27, isUs:true },
+      { rank:2, name:'group5_hew',   mktValue:76948063.04,  portValue:102641566.35, trades:5,  ret:2.64, isUs:false },
+      { rank:3, name:'Group7',       mktValue:100825145.70, portValue:101838093.44, trades:4,  ret:1.84, isUs:false },
+      { rank:4, name:'wesleyqie',    mktValue:100119955.08, portValue:101120508.99, trades:12, ret:1.12, isUs:false },
+      { rank:5, name:'Group_1',      mktValue:67485134.67,  portValue:100758024.91, trades:24, ret:0.76, isUs:false },
+      { rank:6, name:'GROUP-9',      mktValue:75483045.56,  portValue:100524106.74, trades:4,  ret:0.52, isUs:false },
+      { rank:7, name:'Group_2',      mktValue:45667257.60,  portValue:100232653.75, trades:26, ret:0.23, isUs:false },
+    ]
+  },
 ];
 
-const fmtFull = n => '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-// --- Render the latest day's ranking table ---
-const latestDay = rankingsHistory[rankingsHistory.length - 1];
-const rankBody = document.getElementById('rankBody');
-latestDay.groups.forEach(r => {
-  const rowClass = r.isUs ? 'us-row' : '';
-  const rankClass = r.rank === 1 ? 'first' : '';
-  const nameClass = r.isUs ? 'us' : '';
-  rankBody.innerHTML += `<tr class="${rowClass}">
-    <td class="rank-num ${rankClass}">${r.rank === 1 ? '🏆 1' : r.rank}</td>
-    <td class="rank-name ${nameClass}">${r.name}</td>
-    <td style="text-align:right">${fmtFull(r.mktValue)}</td>
-    <td style="text-align:right">${fmtFull(r.portValue)}</td>
-    <td style="text-align:right">${r.trades}</td>
-    <td style="text-align:right" class="pos">+${r.ret.toFixed(2)}%</td>
-  </tr>`;
-});
-
-// --- Build per-group return history for the trend chart ---
 const groupColors = {
   'GROUP-8 (us)': '#2a78d6',
   'group5_hew':   '#898781',
@@ -222,28 +201,40 @@ const groupColors = {
   'Group_2':      '#d03b3b',
 };
 
-const allGroupNames = [...new Set(rankingsHistory.flatMap(day => day.groups.map(g => g.name)))];
-const rankChartLabels = rankingsHistory.map(day => day.date);
+const fmtFull = n => '$' + n.toLocaleString('en-US', { minimumFractionDigits:2, maximumFractionDigits:2 });
 
+// Latest day table
+const latestDay = rankingsHistory[rankingsHistory.length - 1];
+const rankBody = document.getElementById('rankBody');
+latestDay.groups.forEach(r => {
+  const rc = r.isUs ? 'us-row' : '';
+  const rnc = r.rank === 1 ? 'first' : '';
+  const nc = r.isUs ? 'us' : '';
+  rankBody.innerHTML += `<tr class="${rc}">
+    <td class="rank-num ${rnc}">${r.rank===1?'🏆 1':r.rank}</td>
+    <td class="rank-name ${nc}">${r.name}</td>
+    <td style="text-align:right">${fmtFull(r.mktValue)}</td>
+    <td style="text-align:right">${fmtFull(r.portValue)}</td>
+    <td style="text-align:right">${r.trades}</td>
+    <td style="text-align:right" class="pos">+${r.ret.toFixed(2)}%</td>
+  </tr>`;
+});
+
+// Rankings trend chart
+const allGroupNames = [...new Set(rankingsHistory.flatMap(d => d.groups.map(g => g.name)))];
+const rankChartLabels = rankingsHistory.map(d => d.date);
 const rankChartDatasets = allGroupNames.map(name => {
   const isUs = name.includes('(us)');
-  const data = rankingsHistory.map(day => {
-    const g = day.groups.find(x => x.name === name);
-    return g ? g.ret : null;
-  });
   return {
     label: name,
-    data,
+    data: rankingsHistory.map(d => { const g = d.groups.find(x => x.name===name); return g ? g.ret : null; }),
     borderColor: groupColors[name] || '#898781',
     backgroundColor: 'transparent',
     borderWidth: isUs ? 3 : 1.5,
-    pointRadius: isUs ? 4 : 2.5,
+    pointRadius: isUs ? 5 : 3,
     pointBackgroundColor: groupColors[name] || '#898781',
-    pointBorderColor: '#fff',
-    pointBorderWidth: 1.5,
-    fill: false,
-    tension: 0.3,
-    spanGaps: true
+    pointBorderColor: '#fff', pointBorderWidth: 1.5,
+    fill: false, tension: 0.3, spanGaps: true
   };
 });
 
@@ -251,7 +242,7 @@ const rankLegend = document.getElementById('rankLegend');
 allGroupNames.forEach(name => {
   const color = groupColors[name] || '#898781';
   const isUs = name.includes('(us)');
-  rankLegend.innerHTML += `<span class="legend-item" style="${isUs ? 'font-weight:600' : ''}"><span class="legend-dot" style="background:${color}"></span>${name}</span>`;
+  rankLegend.innerHTML += `<span class="legend-item" style="${isUs?'font-weight:600':''}"><span class="legend-dot" style="background:${color}"></span>${name}</span>`;
 });
 
 new Chart(document.getElementById('rankChart'), {
@@ -259,42 +250,40 @@ new Chart(document.getElementById('rankChart'), {
   data: { labels: rankChartLabels, datasets: rankChartDatasets },
   options: {
     responsive: true, maintainAspectRatio: false,
-    plugins: {
-      legend: { display: false },
-      tooltip: { callbacks: { label: c => c.dataset.label + ': ' + (c.parsed.y >= 0 ? '+' : '') + c.parsed.y.toFixed(2) + '%' } }
-    },
+    plugins: { legend: { display:false }, tooltip: { callbacks: { label: c => c.dataset.label+': +'+ c.parsed.y.toFixed(2)+'%' } } },
     scales: {
-      x: { grid: { color: 'rgba(180,178,169,0.2)' }, ticks: { color: '#898781', font: { size: 11 } } },
-      y: { grid: { color: 'rgba(180,178,169,0.2)' }, ticks: { color: '#898781', font: { size: 11 }, callback: v => v.toFixed(1) + '%' } }
+      x: { grid:{color:'rgba(180,178,169,0.2)'}, ticks:{color:'#898781',font:{size:11}} },
+      y: { grid:{color:'rgba(180,178,169,0.2)'}, ticks:{color:'#898781',font:{size:11}, callback: v => v.toFixed(1)+'%'} }
     }
   }
 });
 
+// ── HOLDINGS ──────────────────────────────────────────────────────
 const holdings = [
-  { ticker: 'SMH',  name: 'Semiconductor ETF',    value: 15293916, pl: 424468,   plPct: 2.85  },
-  { ticker: 'GSG',  name: 'Commodities ETF',       value: 14024646, pl: 24657,    plPct: 0.18  },
-  { ticker: 'DRAM', name: 'Memory / storage ETF',  value: 11021208, pl: 186904,   plPct: 1.73  },
-  { ticker: 'SGOV', name: 'Short-term Treasuries', value: 10000960, pl: 0,        plPct: 0.00  },
-  { ticker: 'NVDA', name: 'NVIDIA',                value: 7993770,  pl: 47150,    plPct: 0.59  },
-  { ticker: 'VRT',  name: 'Vertiv Holdings',       value: 7919826,  pl: 76368,    plPct: 0.97  },
-  { ticker: 'TSM',  name: 'TSMC',                  value: 6234870,  pl: 255642,   plPct: 4.28  },
-  { ticker: 'DBMF', name: 'Managed Futures ETF',   value: 5667771,  pl: 14930,    plPct: 0.26  },
-  { ticker: 'ASML', name: 'ASML Holding',          value: 5178553,  pl: 228663,   plPct: 4.62  },
-  { ticker: 'EWY',  name: 'South Korea ETF',       value: 4988850,  pl: 46226,    plPct: 0.94  },
-  { ticker: 'AAPL', name: 'Apple',                 value: 4969894,  pl: -91022,   plPct: -1.80 },
-  { ticker: 'AVGO', name: 'Broadcom',              value: 4015011,  pl: -14769,   plPct: -0.37 },
-  { ticker: 'ANET', name: 'Arista Networks',       value: 3100013,  pl: 112968,   plPct: 3.78  },
+  { ticker:'SMH',  name:'Semiconductor ETF',    value:15872538,   pl:1003090,  plPct:6.75  },
+  { ticker:'GSG',  name:'Commodities ETF',       value:14103547,   pl:103558,   plPct:0.74  },
+  { ticker:'DRAM', name:'Memory / storage ETF',  value:11313820,   pl:479516,   plPct:4.43  },
+  { ticker:'SGOV', name:'Short-term Treasuries', value:10000960,   pl:0,        plPct:0.00  },
+  { ticker:'NVDA', name:'NVIDIA',                value:8203690,    pl:257070,   plPct:3.23  },
+  { ticker:'VRT',  name:'Vertiv Holdings',       value:8638356,    pl:794898,   plPct:10.13 },
+  { ticker:'TSM',  name:'TSMC',                  value:6542709,    pl:563481,   plPct:9.42  },
+  { ticker:'DBMF', name:'Managed Futures ETF',   value:5712561,    pl:59720,    plPct:1.06  },
+  { ticker:'ASML', name:'ASML Holding',          value:5470960,    pl:521070,   plPct:10.53 },
+  { ticker:'EWY',  name:'South Korea ETF',       value:5099994,    pl:157370,   plPct:3.18  },
+  { ticker:'AAPL', name:'Apple',                 value:5104310,    pl:43394,    plPct:0.86  },
+  { ticker:'AVGO', name:'Broadcom',              value:4072145,    pl:42365,    plPct:1.05  },
+  { ticker:'ANET', name:'Arista Networks',       value:3209203,    pl:222158,   plPct:7.44  },
 ];
 
-const fmt = n => '$' + Math.abs(n).toLocaleString('en-US', { maximumFractionDigits: 0 });
-const sign = n => n > 0 ? '+' : n < 0 ? '-' : '';
+const fmt = n => '$' + Math.abs(n).toLocaleString('en-US', {maximumFractionDigits:0});
+const sign = n => n>0?'+':n<0?'-':'';
 
 const tbody = document.getElementById('holdingsBody');
-holdings.forEach((h, i) => {
-  const plClass = h.pl > 0 ? 'pos' : h.pl < 0 ? 'neg' : 'neu';
-  const badgeClass = h.pl > 0 ? 'badge-pos' : h.pl < 0 ? 'badge-neg' : 'badge-neu';
-  const plStr = h.pl === 0 ? '$0' : (sign(h.pl) + fmt(h.pl));
-  const pctStr = h.plPct === 0 ? '0.00%' : (sign(h.plPct) + Math.abs(h.plPct).toFixed(2) + '%');
+holdings.forEach((h,i) => {
+  const plClass = h.pl>0?'pos':h.pl<0?'neg':'neu';
+  const badgeClass = h.pl>0?'badge-pos':h.pl<0?'badge-neg':'badge-neu';
+  const plStr = h.pl===0?'$0':(sign(h.pl)+fmt(h.pl));
+  const pctStr = h.plPct===0?'0.00%':(sign(h.plPct)+Math.abs(h.plPct).toFixed(2)+'%');
   tbody.innerHTML += `<tr>
     <td class="muted">${i+1}</td>
     <td class="mono">${h.ticker}</td>
@@ -306,105 +295,73 @@ holdings.forEach((h, i) => {
 });
 tbody.innerHTML += `<tr class="cash-row">
   <td class="muted">—</td><td class="mono">CASH</td><td>Cash balance</td>
-  <td style="text-align:right">$927,426</td>
+  <td style="text-align:right">$927,503</td>
   <td style="text-align:right" class="neu">—</td>
   <td style="text-align:right"><span class="badge badge-neu">—</span></td>
 </tr>`;
 
-const historyLabels      = ['Jun 30'];
-const historyValues      = [101.34];
-const historyPL          = [1.34];
-const portfolioCumReturn = [1.34];
-const benchmarkCumReturn = [1.00];
+// ── PORTFOLIO VS BENCHMARK CHART ──────────────────────────────────
+// Cumulative benchmark: Jun30 +1.00%, Jul1 +1.00%+0.74%=+1.74%
+const historyLabels      = ['Jun 30', 'Jul 1'];
+const historyValues      = [101.34,   104.27];
+const historyPL          = [1.34,     4.27];
+const portfolioCumReturn = [1.34,     4.27];
+const benchmarkCumReturn = [1.00,     1.74];
 
 const gridColor = 'rgba(180,178,169,0.2)';
-const tickColor  = '#898781';
+const tickColor = '#898781';
 
 new Chart(document.getElementById('vsChart'), {
   type: 'line',
   data: {
     labels: historyLabels,
     datasets: [
-      {
-        label: 'Our portfolio',
-        data: portfolioCumReturn,
-        borderColor: '#2a78d6',
-        backgroundColor: 'rgba(42,120,214,0.07)',
-        borderWidth: 2,
-        pointRadius: 5,
-        pointBackgroundColor: '#2a78d6',
-        pointBorderColor: '#fff',
-        pointBorderWidth: 2,
-        fill: '+1',
-        tension: 0.3
-      },
-      {
-        label: 'MSCI ACWI ETF',
-        data: benchmarkCumReturn,
-        borderColor: '#898781',
-        backgroundColor: 'rgba(137,135,129,0.07)',
-        borderWidth: 2,
-        borderDash: [5, 4],
-        pointRadius: 5,
-        pointBackgroundColor: '#898781',
-        pointBorderColor: '#fff',
-        pointBorderWidth: 2,
-        fill: false,
-        tension: 0.3
-      }
+      { label:'Our portfolio', data:portfolioCumReturn, borderColor:'#2a78d6', backgroundColor:'rgba(42,120,214,0.07)', borderWidth:2, pointRadius:5, pointBackgroundColor:'#2a78d6', pointBorderColor:'#fff', pointBorderWidth:2, fill:'+1', tension:0.3 },
+      { label:'MSCI ACWI ETF', data:benchmarkCumReturn, borderColor:'#898781', borderDash:[5,4], borderWidth:2, pointRadius:5, pointBackgroundColor:'#898781', pointBorderColor:'#fff', pointBorderWidth:2, fill:false, tension:0.3 }
     ]
   },
   options: {
-    responsive: true, maintainAspectRatio: false,
-    plugins: {
-      legend: { display: false },
-      tooltip: { callbacks: { label: c => c.dataset.label + ': ' + (c.parsed.y >= 0 ? '+' : '') + c.parsed.y.toFixed(2) + '%' } }
-    },
-    scales: {
-      x: { grid: { color: gridColor }, ticks: { color: tickColor, font: { size: 11 } } },
-      y: { grid: { color: gridColor }, ticks: { color: tickColor, font: { size: 11 }, callback: v => v.toFixed(1) + '%' } }
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>c.dataset.label+': '+(c.parsed.y>=0?'+':'')+c.parsed.y.toFixed(2)+'%'}} },
+    scales:{
+      x:{grid:{color:gridColor},ticks:{color:tickColor,font:{size:11}}},
+      y:{grid:{color:gridColor},ticks:{color:tickColor,font:{size:11},callback:v=>v.toFixed(1)+'%'}}
     }
   }
 });
 
 const alphaRow = document.getElementById('dailyAlphaRow');
 let alphaHtml = '<strong style="color:#0b0b0b">Daily alpha (us vs. ACWI):</strong> ';
-historyLabels.forEach((label, i) => {
+historyLabels.forEach((label,i) => {
   const alpha = portfolioCumReturn[i] - benchmarkCumReturn[i];
-  const cls = alpha >= 0 ? 'pos' : 'neg';
-  const str = (alpha >= 0 ? '+' : '') + alpha.toFixed(2) + '%';
+  const cls = alpha>=0?'pos':'neg';
+  const str = (alpha>=0?'+':'')+alpha.toFixed(2)+'%';
   alphaHtml += `<span class="alpha-chip ${cls}">${label}: ${str}</span> `;
 });
 alphaRow.innerHTML = alphaHtml;
 
 new Chart(document.getElementById('valueChart'), {
-  type: 'line',
-  data: {
-    labels: historyLabels,
-    datasets: [{ data: historyValues, borderColor: '#2a78d6', backgroundColor: 'rgba(42,120,214,0.07)', borderWidth: 2, pointRadius: 5, pointBackgroundColor: '#2a78d6', pointBorderColor: '#fff', pointBorderWidth: 2, fill: true, tension: 0.3 }]
-  },
-  options: {
-    responsive: true, maintainAspectRatio: false,
-    plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => '$' + c.parsed.y.toFixed(2) + 'M' } } },
-    scales: {
-      x: { grid: { color: gridColor }, ticks: { color: tickColor, font: { size: 11 } } },
-      y: { grid: { color: gridColor }, ticks: { color: tickColor, font: { size: 11 }, callback: v => '$' + v.toFixed(1) + 'M' }, min: 99, max: 104 }
+  type:'line',
+  data:{ labels:historyLabels, datasets:[{data:historyValues,borderColor:'#2a78d6',backgroundColor:'rgba(42,120,214,0.07)',borderWidth:2,pointRadius:5,pointBackgroundColor:'#2a78d6',pointBorderColor:'#fff',pointBorderWidth:2,fill:true,tension:0.3}] },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'$'+c.parsed.y.toFixed(2)+'M'}}},
+    scales:{
+      x:{grid:{color:gridColor},ticks:{color:tickColor,font:{size:11}}},
+      y:{grid:{color:gridColor},ticks:{color:tickColor,font:{size:11},callback:v=>'$'+v.toFixed(1)+'M'},min:99,max:107}
     }
   }
 });
 
 new Chart(document.getElementById('plChart'), {
-  type: 'bar',
-  data: {
-    labels: historyLabels,
-    datasets: [{ data: historyPL, backgroundColor: historyPL.map(v => v >= 0 ? 'rgba(12,163,12,0.7)' : 'rgba(208,59,59,0.7)'), borderRadius: 4, borderSkipped: false }]
-  },
-  options: {
-    responsive: true, maintainAspectRatio: false,
-    plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => (c.parsed.y >= 0 ? '+' : '') + '$' + c.parsed.y.toFixed(2) + 'M' } } },
-    scales: {
-      x: { grid: { display: false }, ticks: { color: tickColor, font: { size: 11 } } },
-      y: { grid: { color: gridColor }, ticks: { color: tickColor, font: { size: 11 }, callback: v => '$' + v.toFixed(2) + 'M' } }
+  type:'bar',
+  data:{ labels:historyLabels, datasets:[{data:historyPL,backgroundColor:historyPL.map(v=>v>=0?'rgba(12,163,12,0.7)':'rgba(208,59,59,0.7)'),borderRadius:4,borderSkipped:false}] },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>(c.parsed.y>=0?'+':'')+c.parsed.y.toFixed(2)+'%'}}},
+    scales:{
+      x:{grid:{display:false},ticks:{color:tickColor,font:{size:11}}},
+      y:{grid:{color:gridColor},ticks:{color:tickColor,font:{size:11},callback:v=>v.toFixed(1)+'%'}}
     }
   }
 });
