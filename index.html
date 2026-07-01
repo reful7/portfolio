@@ -94,6 +94,61 @@
     </div>
   </div>
 
+  <div class="sec">Portfolio volatility vs. target</div>
+  <div class="card" style="padding:1.25rem">
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:1.25rem">
+      <div style="text-align:center">
+        <div style="font-size:12px;color:#898781;margin-bottom:4px">Portfolio vol — GARCH M1 (excl. DRAM)</div>
+        <div style="font-size:28px;font-weight:600;color:#eda100">38.39%</div>
+        <div style="font-size:11px;color:#898781">annualized · 2.42% / day</div>
+      </div>
+      <div style="text-align:center">
+        <div style="font-size:12px;color:#898781;margin-bottom:4px">Vol target (upper bound)</div>
+        <div style="font-size:28px;font-weight:600;color:#0ca30c">30.00%</div>
+        <div style="font-size:11px;color:#898781">annualized · 1.89% / day</div>
+      </div>
+      <div style="text-align:center">
+        <div style="font-size:12px;color:#898781;margin-bottom:4px">Excess vol (overshoot)</div>
+        <div style="font-size:28px;font-weight:600;color:#eda100">+8.39%</div>
+        <div style="font-size:11px;color:#898781">+28.0% above target</div>
+      </div>
+    </div>
+
+    <!-- Gauge bar -->
+    <div style="margin-bottom:8px">
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:#898781;margin-bottom:4px">
+        <span>0%</span>
+        <span style="color:#0ca30c;font-weight:500">▼ Target 30%</span>
+        <span style="color:#eda100;font-weight:500">GARCH 38.39% ▼</span>
+        <span>70%</span>
+      </div>
+      <div style="position:relative;height:12px;background:#f1efe8;border-radius:6px;overflow:visible">
+        <div style="position:absolute;left:0;top:0;height:100%;width:42.86%;background:linear-gradient(90deg,#c8f0c0,#EAF3DE);border-radius:6px 0 0 6px"></div>
+        <div style="position:absolute;left:42.86%;top:0;height:100%;width:28.57%;background:linear-gradient(90deg,#FAEEDA,#fde8c0)"></div>
+        <div style="position:absolute;left:71.43%;top:0;height:100%;width:28.57%;background:linear-gradient(90deg,#fde8c0,#FCEBEB);border-radius:0 6px 6px 0"></div>
+        <!-- Target marker at 30% = 42.86% -->
+        <div style="position:absolute;left:42.86%;top:-4px;width:2px;height:20px;background:#0ca30c;border-radius:1px"></div>
+        <!-- Current GARCH marker at 38.39% → 38.39/70 = 54.84% -->
+        <div style="position:absolute;left:54.84%;top:-4px;width:3px;height:20px;background:#eda100;border-radius:1px"></div>
+      </div>
+      <div style="display:flex;gap:12px;margin-top:8px;font-size:11px">
+        <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;background:#EAF3DE;border-radius:2px;display:inline-block"></span>Safe zone (0–30%)</span>
+        <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;background:#FAEEDA;border-radius:2px;display:inline-block"></span>Caution (30–50%)</span>
+        <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;background:#FCEBEB;border-radius:2px;display:inline-block"></span>Exceeds target (50%+)</span>
+      </div>
+    </div>
+
+    <!-- Variance breakdown -->
+    <div style="border-top:0.5px solid rgba(11,11,11,0.08);margin-top:1rem;padding-top:1rem">
+      <div style="font-size:12px;font-weight:500;color:#52514e;margin-bottom:4px">GARCH variance contribution — σ²_p = w' · [D<sub>GARCH</sub> · ρ<sub>hist</sub> · D<sub>GARCH</sub>] · w</div>
+      <div style="font-size:11px;color:#898781;margin-bottom:8px">DRAM excluded from portfolio vol calculation (ETF too new — unreliable vol estimate). Remaining weights rescaled to 100%.</div>
+      <div id="varBars"></div>
+      <div style="font-size:11px;color:#898781;margin-top:8px">
+        Diversification benefit: weighted avg. GARCH vol 45.6% → portfolio GARCH vol 38.4% (−7.2% from correlation effects)
+      </div>
+    </div>
+  </div>
+
   <div class="sec">Class rankings <span style="text-transform:none;font-weight:400;color:#b8860b">🏆 Still #1 — leading by +1.63%</span></div>
   <div class="card">
     <div class="rank-table-wrap">
@@ -120,18 +175,17 @@
 
   <div class="sec">Holdings — Jul 1, 2026</div>
   <div class="card" style="overflow-x:auto">
-    <table style="min-width:760px">
+    <table style="min-width:700px">
       <colgroup>
-        <col style="width:5%"><col style="width:8%"><col style="width:20%"><col style="width:14%"><col style="width:11%"><col style="width:10%"><col style="width:10%"><col style="width:11%"><col style="width:11%">
+        <col style="width:5%"><col style="width:8%"><col style="width:22%"><col style="width:8%"><col style="width:15%"><col style="width:11%"><col style="width:11%"><col style="width:10%">
       </colgroup>
       <thead>
         <tr>
           <th>#</th><th>Ticker</th><th>Name</th>
+          <th style="text-align:right">Weight</th>
           <th style="text-align:right">Market value</th>
           <th style="text-align:right">P&amp;L ($)</th>
           <th style="text-align:right">P&amp;L (%)</th>
-          <th style="text-align:right">Daily σ</th>
-          <th style="text-align:right">Ann. Vol</th>
           <th style="text-align:right">GARCH Vol</th>
         </tr>
       </thead>
@@ -261,22 +315,47 @@ new Chart(document.getElementById('rankChart'), {
   }
 });
 
-// ── HOLDINGS ──────────────────────────────────────────────────────
+// ── VARIANCE CONTRIBUTION BARS (GARCH M1, excl. DRAM) ────────────
+const varContribs = [
+  { ticker:'SMH',  pct:27.34, color:'#d03b3b' },
+  { ticker:'VRT',  pct:19.57, color:'#d03b3b' },
+  { ticker:'EWY',  pct:12.78, color:'#eb6834' },
+  { ticker:'TSM',  pct:10.03, color:'#eb6834' },
+  { ticker:'ASML', pct:9.59,  color:'#eda100' },
+  { ticker:'NVDA', pct:6.81,  color:'#eda100' },
+  { ticker:'ANET', pct:4.53,  color:'#898781' },
+  { ticker:'AVGO', pct:3.62,  color:'#898781' },
+  { ticker:'GSG',  pct:3.06,  color:'#1baf7a' },
+  { ticker:'DBMF', pct:1.62,  color:'#1baf7a' },
+  { ticker:'AAPL', pct:1.04,  color:'#1baf7a' },
+  { ticker:'SGOV', pct:0.00,  color:'#1baf7a' },
+];
+const varBarsEl = document.getElementById('varBars');
+varContribs.forEach(v => {
+  varBarsEl.innerHTML += `
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
+    <div style="font-family:monospace;font-size:11px;width:36px;color:#52514e;text-align:right">${v.ticker}</div>
+    <div style="flex:1;height:14px;background:#f1efe8;border-radius:3px;overflow:hidden">
+      <div style="height:100%;width:${v.pct*3}%;background:${v.color};border-radius:3px"></div>
+    </div>
+    <div style="font-size:11px;font-family:monospace;color:${v.color};width:38px">${v.pct.toFixed(1)}%</div>
+  </div>`;
+});
 // dailySig, annVol, garchVol from 21-day GARCH analysis (Jul 1 2026)
 const holdings = [
-  { ticker:'SMH',  name:'Semiconductor ETF',    value:15872538, pl:1003090, plPct:6.75,  dailySig:4.42, annVol:70.2,  garchVol:62.3  },
-  { ticker:'GSG',  name:'Commodities ETF',       value:14103547, pl:103558,  plPct:0.74,  dailySig:1.27, annVol:20.2,  garchVol:17.6  },
-  { ticker:'DRAM', name:'Memory / storage ETF',  value:11313820, pl:479516,  plPct:4.43,  dailySig:7.76, annVol:123.3, garchVol:121.8 },
-  { ticker:'SGOV', name:'Short-term Treasuries', value:10000960, pl:0,       plPct:0.00,  dailySig:0.02, annVol:0.3,   garchVol:0.3   },
-  { ticker:'NVDA', name:'NVIDIA',                value:8203690,  pl:257070,  plPct:3.23,  dailySig:2.67, annVol:42.4,  garchVol:35.3  },
-  { ticker:'VRT',  name:'Vertiv Holdings',       value:8638356,  pl:794898,  plPct:10.13, dailySig:5.31, annVol:84.3,  garchVol:95.0  },
-  { ticker:'TSM',  name:'TSMC',                  value:6542709,  pl:563481,  plPct:9.42,  dailySig:3.81, annVol:60.5,  garchVol:61.4  },
-  { ticker:'DBMF', name:'Managed Futures ETF',   value:5712561,  pl:59720,   plPct:1.06,  dailySig:0.71, annVol:11.3,  garchVol:11.0  },
-  { ticker:'ASML', name:'ASML Holding',          value:5470960,  pl:521070,  plPct:10.53, dailySig:4.48, annVol:71.2,  garchVol:70.1  },
-  { ticker:'EWY',  name:'South Korea ETF',       value:5099994,  pl:157370,  plPct:3.18,  dailySig:6.16, annVol:97.8,  garchVol:96.6  },
-  { ticker:'AAPL', name:'Apple',                 value:5104310,  pl:43394,   plPct:0.86,  dailySig:2.17, annVol:34.4,  garchVol:38.2  },
-  { ticker:'AVGO', name:'Broadcom',              value:4072145,  pl:42365,   plPct:1.05,  dailySig:4.71, annVol:74.8,  garchVol:43.8  },
-  { ticker:'ANET', name:'Arista Networks',       value:3209203,  pl:222158,  plPct:7.44,  dailySig:3.74, annVol:59.4,  garchVol:58.2  },
+  { ticker:'SMH',  name:'Semiconductor ETF',    value:15872538, pl:1003090, plPct:6.75,  weight:15.3, garchVol:62.3  },
+  { ticker:'GSG',  name:'Commodities ETF',       value:14103547, pl:103558,  plPct:0.74,  weight:14.0, garchVol:17.6  },
+  { ticker:'DRAM', name:'Memory / storage ETF',  value:11313820, pl:479516,  plPct:4.43,  weight:11.0, garchVol:121.8 },
+  { ticker:'SGOV', name:'Short-term Treasuries', value:10000960, pl:0,       plPct:0.00,  weight:10.0, garchVol:0.3   },
+  { ticker:'NVDA', name:'NVIDIA',                value:8203690,  pl:257070,  plPct:3.23,  weight:8.0,  garchVol:35.3  },
+  { ticker:'VRT',  name:'Vertiv Holdings',       value:8638356,  pl:794898,  plPct:10.13, weight:7.9,  garchVol:95.0  },
+  { ticker:'TSM',  name:'TSMC',                  value:6542709,  pl:563481,  plPct:9.42,  weight:6.2,  garchVol:61.4  },
+  { ticker:'DBMF', name:'Managed Futures ETF',   value:5712561,  pl:59720,   plPct:1.06,  weight:5.7,  garchVol:11.0  },
+  { ticker:'ASML', name:'ASML Holding',          value:5470960,  pl:521070,  plPct:10.53, weight:5.2,  garchVol:70.1  },
+  { ticker:'EWY',  name:'South Korea ETF',       value:5099994,  pl:157370,  plPct:3.18,  weight:5.0,  garchVol:96.6  },
+  { ticker:'AAPL', name:'Apple',                 value:5104310,  pl:43394,   plPct:0.86,  weight:5.0,  garchVol:38.2  },
+  { ticker:'AVGO', name:'Broadcom',              value:4072145,  pl:42365,   plPct:1.05,  weight:4.0,  garchVol:43.8  },
+  { ticker:'ANET', name:'Arista Networks',       value:3209203,  pl:222158,  plPct:7.44,  weight:3.1,  garchVol:58.2  },
 ];
 
 const fmt = n => '$' + Math.abs(n).toLocaleString('en-US', {maximumFractionDigits:0});
@@ -295,26 +374,24 @@ holdings.forEach((h,i) => {
   const badgeClass = h.pl>0?'badge-pos':h.pl<0?'badge-neg':'badge-neu';
   const plStr = h.pl===0?'$0':(sign(h.pl)+fmt(h.pl));
   const pctStr = h.plPct===0?'0.00%':(sign(h.plPct)+Math.abs(h.plPct).toFixed(2)+'%');
-  const vc = volColor(h.annVol);
+  const vc = volColor(h.garchVol);
   tbody.innerHTML += `<tr>
     <td class="muted">${i+1}</td>
     <td class="mono">${h.ticker}</td>
     <td class="muted">${h.name}</td>
+    <td style="text-align:right;color:#52514e;font-family:monospace;font-size:12px">${h.weight.toFixed(1)}%</td>
     <td style="text-align:right">${fmt(h.value)}</td>
     <td style="text-align:right" class="${plClass}">${plStr}</td>
     <td style="text-align:right"><span class="badge ${badgeClass}">${pctStr}</span></td>
-    <td style="text-align:right;color:${vc};font-family:var(--font-mono,monospace);font-size:12px">${h.dailySig.toFixed(2)}%</td>
-    <td style="text-align:right;color:${vc};font-family:var(--font-mono,monospace);font-size:12px">${h.annVol.toFixed(1)}%</td>
-    <td style="text-align:right;color:${vc};font-family:var(--font-mono,monospace);font-size:12px">${h.garchVol.toFixed(1)}%</td>
+    <td style="text-align:right;color:${vc};font-family:monospace;font-size:12px">${h.garchVol.toFixed(1)}%</td>
   </tr>`;
 });
 tbody.innerHTML += `<tr class="cash-row">
   <td class="muted">—</td><td class="mono">CASH</td><td>Cash balance</td>
+  <td style="text-align:right;color:#898781;font-family:monospace;font-size:12px">0.9%</td>
   <td style="text-align:right">$927,503</td>
   <td style="text-align:right" class="neu">—</td>
   <td style="text-align:right"><span class="badge badge-neu">—</span></td>
-  <td style="text-align:right" class="neu">—</td>
-  <td style="text-align:right" class="neu">—</td>
   <td style="text-align:right" class="neu">—</td>
 </tr>`;
 
