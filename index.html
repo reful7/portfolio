@@ -119,10 +119,10 @@
   </div>
 
   <div class="sec">Holdings — Jul 1, 2026</div>
-  <div class="card">
-    <table>
+  <div class="card" style="overflow-x:auto">
+    <table style="min-width:760px">
       <colgroup>
-        <col style="width:10%"><col style="width:14%"><col style="width:32%"><col style="width:16%"><col style="width:14%"><col style="width:14%">
+        <col style="width:5%"><col style="width:8%"><col style="width:20%"><col style="width:14%"><col style="width:11%"><col style="width:10%"><col style="width:10%"><col style="width:11%"><col style="width:11%">
       </colgroup>
       <thead>
         <tr>
@@ -130,6 +130,9 @@
           <th style="text-align:right">Market value</th>
           <th style="text-align:right">P&amp;L ($)</th>
           <th style="text-align:right">P&amp;L (%)</th>
+          <th style="text-align:right">Daily σ</th>
+          <th style="text-align:right">Ann. Vol</th>
+          <th style="text-align:right">GARCH Vol</th>
         </tr>
       </thead>
       <tbody id="holdingsBody"></tbody>
@@ -259,24 +262,32 @@ new Chart(document.getElementById('rankChart'), {
 });
 
 // ── HOLDINGS ──────────────────────────────────────────────────────
+// dailySig, annVol, garchVol from 21-day GARCH analysis (Jul 1 2026)
 const holdings = [
-  { ticker:'SMH',  name:'Semiconductor ETF',    value:15872538,   pl:1003090,  plPct:6.75  },
-  { ticker:'GSG',  name:'Commodities ETF',       value:14103547,   pl:103558,   plPct:0.74  },
-  { ticker:'DRAM', name:'Memory / storage ETF',  value:11313820,   pl:479516,   plPct:4.43  },
-  { ticker:'SGOV', name:'Short-term Treasuries', value:10000960,   pl:0,        plPct:0.00  },
-  { ticker:'NVDA', name:'NVIDIA',                value:8203690,    pl:257070,   plPct:3.23  },
-  { ticker:'VRT',  name:'Vertiv Holdings',       value:8638356,    pl:794898,   plPct:10.13 },
-  { ticker:'TSM',  name:'TSMC',                  value:6542709,    pl:563481,   plPct:9.42  },
-  { ticker:'DBMF', name:'Managed Futures ETF',   value:5712561,    pl:59720,    plPct:1.06  },
-  { ticker:'ASML', name:'ASML Holding',          value:5470960,    pl:521070,   plPct:10.53 },
-  { ticker:'EWY',  name:'South Korea ETF',       value:5099994,    pl:157370,   plPct:3.18  },
-  { ticker:'AAPL', name:'Apple',                 value:5104310,    pl:43394,    plPct:0.86  },
-  { ticker:'AVGO', name:'Broadcom',              value:4072145,    pl:42365,    plPct:1.05  },
-  { ticker:'ANET', name:'Arista Networks',       value:3209203,    pl:222158,   plPct:7.44  },
+  { ticker:'SMH',  name:'Semiconductor ETF',    value:15872538, pl:1003090, plPct:6.75,  dailySig:4.42, annVol:70.2,  garchVol:62.3  },
+  { ticker:'GSG',  name:'Commodities ETF',       value:14103547, pl:103558,  plPct:0.74,  dailySig:1.27, annVol:20.2,  garchVol:17.6  },
+  { ticker:'DRAM', name:'Memory / storage ETF',  value:11313820, pl:479516,  plPct:4.43,  dailySig:7.76, annVol:123.3, garchVol:121.8 },
+  { ticker:'SGOV', name:'Short-term Treasuries', value:10000960, pl:0,       plPct:0.00,  dailySig:0.02, annVol:0.3,   garchVol:0.3   },
+  { ticker:'NVDA', name:'NVIDIA',                value:8203690,  pl:257070,  plPct:3.23,  dailySig:2.67, annVol:42.4,  garchVol:35.3  },
+  { ticker:'VRT',  name:'Vertiv Holdings',       value:8638356,  pl:794898,  plPct:10.13, dailySig:5.31, annVol:84.3,  garchVol:95.0  },
+  { ticker:'TSM',  name:'TSMC',                  value:6542709,  pl:563481,  plPct:9.42,  dailySig:3.81, annVol:60.5,  garchVol:61.4  },
+  { ticker:'DBMF', name:'Managed Futures ETF',   value:5712561,  pl:59720,   plPct:1.06,  dailySig:0.71, annVol:11.3,  garchVol:11.0  },
+  { ticker:'ASML', name:'ASML Holding',          value:5470960,  pl:521070,  plPct:10.53, dailySig:4.48, annVol:71.2,  garchVol:70.1  },
+  { ticker:'EWY',  name:'South Korea ETF',       value:5099994,  pl:157370,  plPct:3.18,  dailySig:6.16, annVol:97.8,  garchVol:96.6  },
+  { ticker:'AAPL', name:'Apple',                 value:5104310,  pl:43394,   plPct:0.86,  dailySig:2.17, annVol:34.4,  garchVol:38.2  },
+  { ticker:'AVGO', name:'Broadcom',              value:4072145,  pl:42365,   plPct:1.05,  dailySig:4.71, annVol:74.8,  garchVol:43.8  },
+  { ticker:'ANET', name:'Arista Networks',       value:3209203,  pl:222158,  plPct:7.44,  dailySig:3.74, annVol:59.4,  garchVol:58.2  },
 ];
 
 const fmt = n => '$' + Math.abs(n).toLocaleString('en-US', {maximumFractionDigits:0});
 const sign = n => n>0?'+':n<0?'-':'';
+
+function volColor(v) {
+  if (v > 70)  return '#d03b3b';
+  if (v > 40)  return '#c97a00';
+  if (v > 20)  return '#898781';
+  return '#0ca30c';
+}
 
 const tbody = document.getElementById('holdingsBody');
 holdings.forEach((h,i) => {
@@ -284,6 +295,7 @@ holdings.forEach((h,i) => {
   const badgeClass = h.pl>0?'badge-pos':h.pl<0?'badge-neg':'badge-neu';
   const plStr = h.pl===0?'$0':(sign(h.pl)+fmt(h.pl));
   const pctStr = h.plPct===0?'0.00%':(sign(h.plPct)+Math.abs(h.plPct).toFixed(2)+'%');
+  const vc = volColor(h.annVol);
   tbody.innerHTML += `<tr>
     <td class="muted">${i+1}</td>
     <td class="mono">${h.ticker}</td>
@@ -291,6 +303,9 @@ holdings.forEach((h,i) => {
     <td style="text-align:right">${fmt(h.value)}</td>
     <td style="text-align:right" class="${plClass}">${plStr}</td>
     <td style="text-align:right"><span class="badge ${badgeClass}">${pctStr}</span></td>
+    <td style="text-align:right;color:${vc};font-family:var(--font-mono,monospace);font-size:12px">${h.dailySig.toFixed(2)}%</td>
+    <td style="text-align:right;color:${vc};font-family:var(--font-mono,monospace);font-size:12px">${h.annVol.toFixed(1)}%</td>
+    <td style="text-align:right;color:${vc};font-family:var(--font-mono,monospace);font-size:12px">${h.garchVol.toFixed(1)}%</td>
   </tr>`;
 });
 tbody.innerHTML += `<tr class="cash-row">
@@ -298,6 +313,9 @@ tbody.innerHTML += `<tr class="cash-row">
   <td style="text-align:right">$927,503</td>
   <td style="text-align:right" class="neu">—</td>
   <td style="text-align:right"><span class="badge badge-neu">—</span></td>
+  <td style="text-align:right" class="neu">—</td>
+  <td style="text-align:right" class="neu">—</td>
+  <td style="text-align:right" class="neu">—</td>
 </tr>`;
 
 // ── PORTFOLIO VS BENCHMARK CHART ──────────────────────────────────
