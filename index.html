@@ -6,194 +6,194 @@
 <title>Portfolio Tracker — $100M Fund</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #f5f5f3; color: #0b0b0b; min-height: 100vh; padding: 2rem 1rem; }
-  .container { max-width: 900px; margin: 0 auto; }
-  h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
-  .subtitle { font-size: 14px; color: #52514e; margin-bottom: 1.5rem; }
-  .day-pill { display: inline-block; background: #E6F1FB; color: #185FA5; font-size: 11px; padding: 2px 10px; border-radius: 6px; margin-left: 8px; vertical-align: middle; }
-  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 1.5rem; }
-  @media (max-width: 600px) { .kpi-grid { grid-template-columns: repeat(2, 1fr); } }
-  .kpi { background: #fff; border-radius: 8px; padding: 0.875rem 1rem; border: 0.5px solid rgba(11,11,11,0.1); }
-  .kpi-label { font-size: 12px; color: #898781; margin-bottom: 4px; }
-  .kpi-val { font-size: 18px; font-weight: 500; }
-  .pos { color: #0ca30c; } .neg { color: #d03b3b; } .neu { color: #898781; }
-  .sec { font-size: 11px; font-weight: 500; color: #898781; text-transform: uppercase; letter-spacing: 0.05em; margin: 1.5rem 0 0.6rem; }
-  .card { background: #fff; border: 0.5px solid rgba(11,11,11,0.1); border-radius: 12px; overflow: hidden; margin-bottom: 1.5rem; }
-  table { width: 100%; border-collapse: collapse; font-size: 13px; table-layout: fixed; }
-  th { text-align: left; padding: 8px 12px; font-size: 11px; font-weight: 500; color: #898781; border-bottom: 0.5px solid rgba(11,11,11,0.1); background: #f9f9f8; }
-  td { padding: 9px 12px; border-bottom: 0.5px solid rgba(11,11,11,0.06); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  tr:last-child td { border-bottom: none; }
-  .mono { font-family: "SF Mono","Fira Code",monospace; font-weight: 500; }
-  .muted { color: #52514e; }
-  .badge { display: inline-block; font-size: 11px; padding: 1px 7px; border-radius: 6px; font-family: monospace; }
-  .badge-pos { background: #EAF3DE; color: #27500A; }
-  .badge-neg { background: #FCEBEB; color: #791F1F; }
-  .badge-neu { background: #f1efe8; color: #898781; }
-  .cash-row td { background: #f9f9f8; color: #52514e; }
-  .chart-wrap { position: relative; width: 100%; height: 220px; }
-  .chart-card { background: #fff; border: 0.5px solid rgba(11,11,11,0.1); border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 1.5rem; }
-  .charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-  @media (max-width: 600px) { .charts-grid { grid-template-columns: 1fr; } }
-  .note { font-size: 12px; color: #898781; border-top: 0.5px solid rgba(11,11,11,0.08); padding-top: 1rem; margin-top: 0.5rem; }
-  .updated { font-size: 11px; color: #b4b2a9; margin-top: 4px; }
-  .legend { display: flex; gap: 16px; margin-bottom: 0.75rem; font-size: 12px; color: #52514e; flex-wrap: wrap; }
-  .legend-item { display: flex; align-items: center; gap: 4px; }
-  .legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
-  .vs-card { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.25rem; }
-  .vs-block { text-align: center; flex: 1; }
-  .vs-label { font-size: 12px; color: #898781; margin-bottom: 4px; }
-  .vs-val { font-size: 22px; font-weight: 500; }
-  .vs-div { width: 0.5px; background: rgba(11,11,11,0.1); align-self: stretch; margin: 0 1rem; }
-  .alpha-chip { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; padding: 2px 8px; border-radius: 6px; font-weight: 500; margin-left: 6px; }
-  .alpha-chip.pos { background: #EAF3DE; color: #27500A; }
-  .alpha-chip.neg { background: #FCEBEB; color: #791F1F; }
-  .rank-table-wrap { overflow-x: auto; }
-  .rank-table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 480px; }
-  .rank-table th { text-align: left; padding: 8px 12px; font-size: 11px; font-weight: 500; color: #898781; border-bottom: 0.5px solid rgba(11,11,11,0.1); background: #f9f9f8; white-space: nowrap; }
-  .rank-table td { padding: 9px 12px; border-bottom: 0.5px solid rgba(11,11,11,0.06); white-space: nowrap; }
-  .rank-table tr:last-child td { border-bottom: none; }
-  .rank-table tr.us-row td { background: #FFF7DE; font-weight: 600; }
-  .rank-num { font-family: monospace; color: #898781; }
-  .rank-num.first { color: #b8860b; font-weight: 700; }
-  .rank-name { font-weight: 500; }
-  .rank-name.us { color: #185FA5; }
-  .rank-legend { display: flex; flex-wrap: wrap; gap: 10px 16px; margin-bottom: 0.75rem; font-size: 12px; color: #52514e; }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f5f5f3;color:#0b0b0b;min-height:100vh;padding:2rem 1rem}
+  .container{max-width:900px;margin:0 auto}
+  h1{font-size:22px;font-weight:500;margin-bottom:4px}
+  .subtitle{font-size:14px;color:#52514e;margin-bottom:1.5rem}
+  .day-pill{display:inline-block;background:#E6F1FB;color:#185FA5;font-size:11px;padding:2px 10px;border-radius:6px;margin-left:8px;vertical-align:middle}
+  .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1.5rem}
+  @media(max-width:600px){.kpi-grid{grid-template-columns:repeat(2,1fr)}}
+  .kpi{background:#fff;border-radius:8px;padding:.875rem 1rem;border:.5px solid rgba(11,11,11,.1)}
+  .kpi-label{font-size:12px;color:#898781;margin-bottom:4px}
+  .kpi-val{font-size:18px;font-weight:500}
+  .pos{color:#0ca30c}.neg{color:#d03b3b}.neu{color:#898781}
+  .sec{font-size:11px;font-weight:500;color:#898781;text-transform:uppercase;letter-spacing:.05em;margin:1.5rem 0 .6rem}
+  .card{background:#fff;border:.5px solid rgba(11,11,11,.1);border-radius:12px;overflow:hidden;margin-bottom:1.5rem}
+  table{width:100%;border-collapse:collapse;font-size:13px;table-layout:fixed}
+  th{text-align:left;padding:8px 12px;font-size:11px;font-weight:500;color:#898781;border-bottom:.5px solid rgba(11,11,11,.1);background:#f9f9f8}
+  td{padding:9px 12px;border-bottom:.5px solid rgba(11,11,11,.06);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  tr:last-child td{border-bottom:none}
+  .mono{font-family:"SF Mono","Fira Code",monospace;font-weight:500}
+  .muted{color:#52514e}
+  .badge{display:inline-block;font-size:11px;padding:1px 7px;border-radius:6px;font-family:monospace}
+  .badge-pos{background:#EAF3DE;color:#27500A}
+  .badge-neg{background:#FCEBEB;color:#791F1F}
+  .badge-neu{background:#f1efe8;color:#898781}
+  .cash-row td{background:#f9f9f8;color:#52514e}
+  .chart-wrap{position:relative;width:100%;height:220px}
+  .chart-card{background:#fff;border:.5px solid rgba(11,11,11,.1);border-radius:12px;padding:1rem 1.25rem;margin-bottom:1.5rem}
+  .charts-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  @media(max-width:600px){.charts-grid{grid-template-columns:1fr}}
+  .note{font-size:12px;color:#898781;border-top:.5px solid rgba(11,11,11,.08);padding-top:1rem;margin-top:.5rem}
+  .updated{font-size:11px;color:#b4b2a9;margin-top:4px}
+  .legend{display:flex;gap:16px;margin-bottom:.75rem;font-size:12px;color:#52514e;flex-wrap:wrap}
+  .legend-item{display:flex;align-items:center;gap:4px}
+  .legend-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+  .vs-card{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.25rem}
+  .vs-block{text-align:center;flex:1}
+  .vs-label{font-size:12px;color:#898781;margin-bottom:4px}
+  .vs-val{font-size:22px;font-weight:500}
+  .vs-div{width:.5px;background:rgba(11,11,11,.1);align-self:stretch;margin:0 1rem}
+  .alpha-chip{display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:2px 8px;border-radius:6px;font-weight:500;margin-left:6px}
+  .alpha-chip.pos{background:#EAF3DE;color:#27500A}
+  .alpha-chip.neg{background:#FCEBEB;color:#791F1F}
+  .rank-table-wrap{overflow-x:auto}
+  .rank-table{width:100%;border-collapse:collapse;font-size:13px;min-width:480px}
+  .rank-table th{text-align:left;padding:8px 12px;font-size:11px;font-weight:500;color:#898781;border-bottom:.5px solid rgba(11,11,11,.1);background:#f9f9f8;white-space:nowrap}
+  .rank-table td{padding:9px 12px;border-bottom:.5px solid rgba(11,11,11,.06);white-space:nowrap}
+  .rank-table tr:last-child td{border-bottom:none}
+  .rank-table tr.us-row td{background:#FFF7DE;font-weight:600}
+  .rank-num{font-family:monospace;color:#898781}
+  .rank-num.first{color:#b8860b;font-weight:700}
+  .rank-name{font-weight:500}
+  .rank-name.us{color:#185FA5}
+  .rank-legend{display:flex;flex-wrap:wrap;gap:10px 16px;margin-bottom:.75rem;font-size:12px;color:#52514e}
 </style>
 </head>
 <body>
 <div class="container">
 
-  <h1>Portfolio tracker <span class="day-pill">Day 3 — Jul 2</span></h1>
-  <p class="subtitle">StockTrak · NUS BMA5309 · $100M virtual fund · Long-only · Benchmark: iShares MSCI ACWI ETF (ACWI)</p>
+<h1>Portfolio tracker <span class="day-pill">Day 4 — Jul 3</span></h1>
+<p class="subtitle">StockTrak · NUS BMA5309 · $100M virtual fund · Long-only · Benchmark: iShares MSCI ACWI ETF (ACWI)</p>
 
-  <div class="kpi-grid">
-    <div class="kpi"><div class="kpi-label">Portfolio value</div><div class="kpi-val">$99,970,190</div></div>
-    <div class="kpi"><div class="kpi-label">Total P&amp;L</div><div class="kpi-val neg">-$29,810</div></div>
-    <div class="kpi"><div class="kpi-label">Total return</div><div class="kpi-val neg">-0.03%</div></div>
-    <div class="kpi"><div class="kpi-label">Cash balance</div><div class="kpi-val">$927,579</div></div>
-  </div>
+<div class="kpi-grid">
+  <div class="kpi"><div class="kpi-label">Portfolio value</div><div class="kpi-val">$97,665,435</div></div>
+  <div class="kpi"><div class="kpi-label">Total P&amp;L</div><div class="kpi-val neg">-$2,334,565</div></div>
+  <div class="kpi"><div class="kpi-label">Total return</div><div class="kpi-val neg">-2.33%</div></div>
+  <div class="kpi"><div class="kpi-label">Cash balance</div><div class="kpi-val">$957,040</div></div>
+</div>
 
-  <div class="sec">Vs. benchmark — MSCI ACWI ETF (ACWI)</div>
-  <div class="card vs-card">
-    <div class="vs-block"><div class="vs-label">Our portfolio</div><div class="vs-val neg">-0.03%</div></div>
-    <div class="vs-div"></div>
-    <div class="vs-block"><div class="vs-label">MSCI ACWI ETF</div><div class="vs-val neg">+1.20%</div></div>
-    <div class="vs-div"></div>
-    <div class="vs-block"><div class="vs-label">Cumulative alpha</div><div class="vs-val neg">-1.23%</div></div>
-  </div>
+<div class="sec">Vs. benchmark — MSCI ACWI ETF (ACWI)</div>
+<div class="card vs-card">
+  <div class="vs-block"><div class="vs-label">Our portfolio</div><div class="vs-val neg">-2.33%</div></div>
+  <div class="vs-div"></div>
+  <div class="vs-block"><div class="vs-label">MSCI ACWI ETF</div><div class="vs-val pos">+1.22%</div></div>
+  <div class="vs-div"></div>
+  <div class="vs-block"><div class="vs-label">Cumulative alpha</div><div class="vs-val neg">-3.55%</div></div>
+</div>
 
-  <div class="sec">Portfolio volatility vs. target</div>
-  <div class="card" style="padding:1.25rem">
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:1.25rem">
-      <div style="text-align:center">
-        <div style="font-size:12px;color:#898781;margin-bottom:4px">Portfolio vol — GARCH M1 (excl. DRAM)</div>
-        <div style="font-size:28px;font-weight:600;color:#d03b3b">40.66%</div>
-        <div style="font-size:11px;color:#898781">annualized · 2.56% / day</div>
-      </div>
-      <div style="text-align:center">
-        <div style="font-size:12px;color:#898781;margin-bottom:4px">Vol target (upper bound)</div>
-        <div style="font-size:28px;font-weight:600;color:#0ca30c">30.00%</div>
-        <div style="font-size:11px;color:#898781">annualized · 1.89% / day</div>
-      </div>
-      <div style="text-align:center">
-        <div style="font-size:12px;color:#898781;margin-bottom:4px">Excess vol (overshoot)</div>
-        <div style="font-size:28px;font-weight:600;color:#d03b3b">+10.66%</div>
-        <div style="font-size:11px;color:#898781">+35.5% above target</div>
-      </div>
+<div class="sec">Portfolio volatility vs. target</div>
+<div class="card" style="padding:1.25rem">
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:1.25rem">
+    <div style="text-align:center">
+      <div style="font-size:12px;color:#898781;margin-bottom:4px">Portfolio vol — GARCH M1 (excl. DRAM)</div>
+      <div style="font-size:28px;font-weight:600;color:#d03b3b">37.92%</div>
+      <div style="font-size:11px;color:#898781">annualized · 2.39% / day</div>
     </div>
-    <div style="margin-bottom:8px">
-      <div style="display:flex;justify-content:space-between;font-size:11px;color:#898781;margin-bottom:4px">
-        <span>0%</span>
-        <span style="color:#0ca30c;font-weight:500">▼ Target 30%</span>
-        <span style="color:#d03b3b;font-weight:500">GARCH 40.66% ▼</span>
-        <span>70%</span>
-      </div>
-      <div style="position:relative;height:12px;background:#f1efe8;border-radius:6px;overflow:visible">
-        <div style="position:absolute;left:0;top:0;height:100%;width:42.86%;background:linear-gradient(90deg,#c8f0c0,#EAF3DE);border-radius:6px 0 0 6px"></div>
-        <div style="position:absolute;left:42.86%;top:0;height:100%;width:28.57%;background:linear-gradient(90deg,#FAEEDA,#fde8c0)"></div>
-        <div style="position:absolute;left:71.43%;top:0;height:100%;width:28.57%;background:linear-gradient(90deg,#fde8c0,#FCEBEB);border-radius:0 6px 6px 0"></div>
-        <div style="position:absolute;left:42.86%;top:-4px;width:2px;height:20px;background:#0ca30c;border-radius:1px"></div>
-        <div style="position:absolute;left:58.09%;top:-4px;width:3px;height:20px;background:#d03b3b;border-radius:1px"></div>
-      </div>
-      <div style="display:flex;gap:12px;margin-top:8px;font-size:11px">
-        <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;background:#EAF3DE;border-radius:2px;display:inline-block"></span>Safe (0–30%)</span>
-        <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;background:#FAEEDA;border-radius:2px;display:inline-block"></span>Caution (30–50%)</span>
-        <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;background:#FCEBEB;border-radius:2px;display:inline-block"></span>Exceeds target (50%+)</span>
-      </div>
+    <div style="text-align:center">
+      <div style="font-size:12px;color:#898781;margin-bottom:4px">Vol target (upper bound)</div>
+      <div style="font-size:28px;font-weight:600;color:#0ca30c">30.00%</div>
+      <div style="font-size:11px;color:#898781">annualized · 1.89% / day</div>
     </div>
-    <div style="border-top:0.5px solid rgba(11,11,11,0.08);margin-top:1rem;padding-top:1rem">
-      <div style="font-size:12px;font-weight:500;color:#52514e;margin-bottom:4px">GARCH variance contribution — σ²_p = w' · [D<sub>GARCH</sub> · ρ<sub>hist</sub> · D<sub>GARCH</sub>] · w</div>
-      <div style="font-size:11px;color:#898781;margin-bottom:8px">DRAM excluded (ETF too new — unreliable vol estimate). Remaining weights rescaled to 100%.</div>
-      <div id="varBars"></div>
-      <div style="font-size:11px;color:#898781;margin-top:8px">Diversification benefit: weighted avg. GARCH vol ~53% → portfolio vol 40.7% (−12.3% from correlations)</div>
+    <div style="text-align:center">
+      <div style="font-size:12px;color:#898781;margin-bottom:4px">Excess vol (overshoot)</div>
+      <div style="font-size:28px;font-weight:600;color:#d03b3b">+7.92%</div>
+      <div style="font-size:11px;color:#898781">+26.4% above target</div>
     </div>
   </div>
-
-  <div class="sec">Class rankings <span style="text-transform:none;font-weight:400;color:#d03b3b">⚠️ Dropped to #5 — Jul 2</span></div>
-  <div class="card">
-    <div class="rank-table-wrap">
-    <table class="rank-table">
-      <thead><tr>
-        <th>Rank</th><th>Group</th>
-        <th style="text-align:right">Market value</th>
-        <th style="text-align:right">Portfolio value</th>
-        <th style="text-align:right">Trades</th>
-        <th style="text-align:right">% Return</th>
-      </tr></thead>
-      <tbody id="rankBody"></tbody>
-    </table>
+  <div style="margin-bottom:8px">
+    <div style="display:flex;justify-content:space-between;font-size:11px;color:#898781;margin-bottom:4px">
+      <span>0%</span>
+      <span style="color:#0ca30c;font-weight:500">▼ Target 30%</span>
+      <span style="color:#d03b3b;font-weight:500">GARCH 37.92% ▼</span>
+      <span>70%</span>
+    </div>
+    <div style="position:relative;height:12px;background:#f1efe8;border-radius:6px;overflow:visible">
+      <div style="position:absolute;left:0;top:0;height:100%;width:42.86%;background:linear-gradient(90deg,#c8f0c0,#EAF3DE);border-radius:6px 0 0 6px"></div>
+      <div style="position:absolute;left:42.86%;top:0;height:100%;width:28.57%;background:linear-gradient(90deg,#FAEEDA,#fde8c0)"></div>
+      <div style="position:absolute;left:71.43%;top:0;height:100%;width:28.57%;background:linear-gradient(90deg,#fde8c0,#FCEBEB);border-radius:0 6px 6px 0"></div>
+      <div style="position:absolute;left:42.86%;top:-4px;width:2px;height:20px;background:#0ca30c;border-radius:1px"></div>
+      <div style="position:absolute;left:54.17%;top:-4px;width:3px;height:20px;background:#d03b3b;border-radius:1px"></div>
+    </div>
+    <div style="display:flex;gap:12px;margin-top:8px;font-size:11px">
+      <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;background:#EAF3DE;border-radius:2px;display:inline-block"></span>Safe (0–30%)</span>
+      <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;background:#FAEEDA;border-radius:2px;display:inline-block"></span>Caution (30–50%)</span>
+      <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;background:#FCEBEB;border-radius:2px;display:inline-block"></span>Exceeds target (50%+)</span>
     </div>
   </div>
+  <div style="border-top:.5px solid rgba(11,11,11,.08);margin-top:1rem;padding-top:1rem">
+    <div style="font-size:12px;font-weight:500;color:#52514e;margin-bottom:4px">GARCH variance contribution — σ²_p = w' · [D<sub>GARCH</sub> · ρ<sub>hist</sub> · D<sub>GARCH</sub>] · w</div>
+    <div style="font-size:11px;color:#898781;margin-bottom:8px">DRAM excluded (ETF too new). Remaining weights rescaled to 100%.</div>
+    <div id="varBars"></div>
+    <div style="font-size:11px;color:#898781;margin-top:8px">Diversification benefit: weighted avg. GARCH vol ~48% → portfolio vol 37.9% (−10.1% from correlations)</div>
+  </div>
+</div>
 
-  <div class="sec">Class rankings — return history (all groups)</div>
+<div class="sec">Class rankings <span style="text-transform:none;font-weight:400;color:#d03b3b">⚠️ Rank #8 (last) — Jul 3</span></div>
+<div class="card">
+  <div class="rank-table-wrap">
+  <table class="rank-table">
+    <thead><tr>
+      <th>Rank</th><th>Group</th>
+      <th style="text-align:right">Market value</th>
+      <th style="text-align:right">Portfolio value</th>
+      <th style="text-align:right">Trades</th>
+      <th style="text-align:right">% Return</th>
+    </tr></thead>
+    <tbody id="rankBody"></tbody>
+  </table>
+  </div>
+</div>
+
+<div class="sec">Class rankings — return history (all groups)</div>
+<div class="chart-card">
+  <div class="rank-legend" id="rankLegend"></div>
+  <div class="chart-wrap"><canvas id="rankChart"></canvas></div>
+</div>
+
+<div class="sec">Holdings — Jul 3, 2026</div>
+<div class="card" style="overflow-x:auto">
+  <table style="min-width:700px">
+    <colgroup>
+      <col style="width:5%"><col style="width:8%"><col style="width:22%"><col style="width:8%"><col style="width:15%"><col style="width:11%"><col style="width:11%"><col style="width:10%">
+    </colgroup>
+    <thead><tr>
+      <th>#</th><th>Ticker</th><th>Name</th>
+      <th style="text-align:right">Weight</th>
+      <th style="text-align:right">Market value</th>
+      <th style="text-align:right">P&amp;L ($)</th>
+      <th style="text-align:right">P&amp;L (%)</th>
+      <th style="text-align:right">GARCH Vol</th>
+    </tr></thead>
+    <tbody id="holdingsBody"></tbody>
+  </table>
+</div>
+
+<div class="sec">Performance history — portfolio vs. benchmark</div>
+<div class="chart-card">
+  <div class="legend">
+    <span class="legend-item"><span class="legend-dot" style="background:#2a78d6"></span>Our portfolio (cumulative %)</span>
+    <span class="legend-item"><span class="legend-dot" style="background:#898781"></span>MSCI ACWI ETF (cumulative %)</span>
+  </div>
+  <div class="chart-wrap"><canvas id="vsChart"></canvas></div>
+  <div id="dailyAlphaRow" style="margin-top:.75rem;font-size:12px;color:#52514e"></div>
+</div>
+
+<div class="sec">Daily detail</div>
+<div class="charts-grid">
   <div class="chart-card">
-    <div class="rank-legend" id="rankLegend"></div>
-    <div class="chart-wrap"><canvas id="rankChart"></canvas></div>
+    <div style="font-size:13px;font-weight:500;color:#52514e;margin-bottom:.75rem">Portfolio value (M$)</div>
+    <div class="chart-wrap"><canvas id="valueChart"></canvas></div>
   </div>
-
-  <div class="sec">Holdings — Jul 2, 2026</div>
-  <div class="card" style="overflow-x:auto">
-    <table style="min-width:700px">
-      <colgroup>
-        <col style="width:5%"><col style="width:8%"><col style="width:22%"><col style="width:8%"><col style="width:15%"><col style="width:11%"><col style="width:11%"><col style="width:10%">
-      </colgroup>
-      <thead><tr>
-        <th>#</th><th>Ticker</th><th>Name</th>
-        <th style="text-align:right">Weight</th>
-        <th style="text-align:right">Market value</th>
-        <th style="text-align:right">P&amp;L ($)</th>
-        <th style="text-align:right">P&amp;L (%)</th>
-        <th style="text-align:right">GARCH Vol</th>
-      </tr></thead>
-      <tbody id="holdingsBody"></tbody>
-    </table>
-  </div>
-
-  <div class="sec">Performance history — portfolio vs. benchmark</div>
   <div class="chart-card">
-    <div class="legend">
-      <span class="legend-item"><span class="legend-dot" style="background:#2a78d6"></span>Our portfolio (cumulative %)</span>
-      <span class="legend-item"><span class="legend-dot" style="background:#898781"></span>MSCI ACWI ETF (cumulative %)</span>
-    </div>
-    <div class="chart-wrap"><canvas id="vsChart"></canvas></div>
-    <div id="dailyAlphaRow" style="margin-top:0.75rem;font-size:12px;color:#52514e"></div>
+    <div style="font-size:13px;font-weight:500;color:#52514e;margin-bottom:.75rem">Daily return (%)</div>
+    <div class="chart-wrap"><canvas id="plChart"></canvas></div>
   </div>
+</div>
 
-  <div class="sec">Daily detail</div>
-  <div class="charts-grid">
-    <div class="chart-card">
-      <div style="font-size:13px;font-weight:500;color:#52514e;margin-bottom:0.75rem">Portfolio value (M$)</div>
-      <div class="chart-wrap"><canvas id="valueChart"></canvas></div>
-    </div>
-    <div class="chart-card">
-      <div style="font-size:13px;font-weight:500;color:#52514e;margin-bottom:0.75rem">Daily return (%)</div>
-      <div class="chart-wrap"><canvas id="plChart"></canvas></div>
-    </div>
-  </div>
-
-  <p class="note">Data from StockTrak & Yahoo Finance (ACWI). GARCH M1: conditional vol × historical correlation. DRAM excluded from portfolio vol (ETF history too short). Updated daily.</p>
-  <p class="updated">Last updated: Jul 2, 2026</p>
+<p class="note">Data from StockTrak & Yahoo Finance (ACWI). GARCH M1: conditional vol × historical correlation. DRAM excluded from portfolio vol. Updated daily.</p>
+<p class="updated">Last updated: Jul 3, 2026</p>
 </div>
 
 <script>
@@ -226,91 +226,64 @@ const rankingsHistory = [
     {rank:7,name:'Group+3',mktValue:48570957.00,portValue:99849280.64,trades:10,ret:-0.15,isUs:false},
     {rank:8,name:'Group_2',mktValue:44946650.10,portValue:99516531.08,trades:26,ret:-0.48,isUs:false},
   ]},
+  { date:'Jul 3', groups:[
+    {rank:1,name:'Group7',mktValue:100739303.70,portValue:100749577.56,trades:5,ret:0.75,isUs:false},
+    {rank:2,name:'GROUP-9',mktValue:75674785.35,portValue:100719963.04,trades:4,ret:0.72,isUs:false},
+    {rank:3,name:'group5_hew',mktValue:99604488.61,portValue:100333005.96,trades:6,ret:0.33,isUs:false},
+    {rank:4,name:'Group_1',mktValue:72008015.40,portValue:99958826.04,trades:26,ret:-0.04,isUs:false},
+    {rank:5,name:'Group+3',mktValue:98792716.14,portValue:99566741.09,trades:30,ret:-0.43,isUs:false},
+    {rank:6,name:'wesleyqie',mktValue:98976848.37,portValue:98978881.33,trades:15,ret:-1.02,isUs:false},
+    {rank:7,name:'Group_2',mktValue:45133937.55,portValue:98895793.73,trades:27,ret:-1.10,isUs:false},
+    {rank:8,name:'GROUP-8 (us)',mktValue:96708395.44,portValue:97665435.34,trades:13,ret:-2.33,isUs:true},
+  ]},
 ];
 
-const groupColors = {
-  'GROUP-8 (us)':'#2a78d6','group5_hew':'#898781','Group7':'#1baf7a',
-  'wesleyqie':'#eda100','GROUP-9':'#eb6834','Group_1':'#534AB7',
-  'Group_2':'#d03b3b','Group+3':'#b04090',
-};
+const groupColors={'GROUP-8 (us)':'#2a78d6','group5_hew':'#898781','Group7':'#1baf7a','wesleyqie':'#eda100','GROUP-9':'#eb6834','Group_1':'#534AB7','Group_2':'#d03b3b','Group+3':'#b04090'};
+const fmtFull=n=>'$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
 
-const fmtFull = n => '$' + n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
-const latestDay = rankingsHistory[rankingsHistory.length-1];
-const rankBody = document.getElementById('rankBody');
-latestDay.groups.forEach(r => {
-  const rc=r.isUs?'us-row':'', rnc=r.rank===1?'first':'', nc=r.isUs?'us':'';
-  const retClass = r.ret>=0?'pos':'neg';
-  rankBody.innerHTML+=`<tr class="${rc}">
-    <td class="rank-num ${rnc}">${r.rank===1?'\u{1F3C6} 1':r.rank}</td>
-    <td class="rank-name ${nc}">${r.name}</td>
-    <td style="text-align:right">${fmtFull(r.mktValue)}</td>
-    <td style="text-align:right">${fmtFull(r.portValue)}</td>
-    <td style="text-align:right">${r.trades}</td>
-    <td style="text-align:right" class="${retClass}">${r.ret>=0?'+':''}${r.ret.toFixed(2)}%</td>
-  </tr>`;
+const latestDay=rankingsHistory[rankingsHistory.length-1];
+const rankBody=document.getElementById('rankBody');
+latestDay.groups.forEach(r=>{
+  const rc=r.isUs?'us-row':'',rnc=r.rank===1?'first':'',nc=r.isUs?'us':'';
+  const retClass=r.ret>=0?'pos':'neg';
+  rankBody.innerHTML+=`<tr class="${rc}"><td class="rank-num ${rnc}">${r.rank===1?'🏆 1':r.rank}</td><td class="rank-name ${nc}">${r.name}</td><td style="text-align:right">${fmtFull(r.mktValue)}</td><td style="text-align:right">${fmtFull(r.portValue)}</td><td style="text-align:right">${r.trades}</td><td style="text-align:right" class="${retClass}">${r.ret>=0?'+':''}${r.ret.toFixed(2)}%</td></tr>`;
 });
 
 const allGroupNames=[...new Set(rankingsHistory.flatMap(d=>d.groups.map(g=>g.name)))];
 const rankChartLabels=rankingsHistory.map(d=>d.date);
 const rankChartDatasets=allGroupNames.map(name=>{
   const isUs=name.includes('(us)');
-  return {
-    label:name,
-    data:rankingsHistory.map(d=>{const g=d.groups.find(x=>x.name===name);return g?g.ret:null;}),
-    borderColor:groupColors[name]||'#898781',backgroundColor:'transparent',
-    borderWidth:isUs?3:1.5,pointRadius:isUs?5:3,
-    pointBackgroundColor:groupColors[name]||'#898781',
-    pointBorderColor:'#fff',pointBorderWidth:1.5,fill:false,tension:0.3,spanGaps:true
-  };
+  return{label:name,data:rankingsHistory.map(d=>{const g=d.groups.find(x=>x.name===name);return g?g.ret:null;}),borderColor:groupColors[name]||'#898781',backgroundColor:'transparent',borderWidth:isUs?3:1.5,pointRadius:isUs?5:3,pointBackgroundColor:groupColors[name]||'#898781',pointBorderColor:'#fff',pointBorderWidth:1.5,fill:false,tension:0.3,spanGaps:true};
 });
 const rankLegend=document.getElementById('rankLegend');
-allGroupNames.forEach(name=>{
-  const color=groupColors[name]||'#898781';
-  const isUs=name.includes('(us)');
-  rankLegend.innerHTML+=`<span class="legend-item" style="${isUs?'font-weight:600':''}"><span class="legend-dot" style="background:${color}"></span>${name}</span>`;
-});
-new Chart(document.getElementById('rankChart'),{
-  type:'line',data:{labels:rankChartLabels,datasets:rankChartDatasets},
-  options:{responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.dataset.label+': '+(c.parsed.y>=0?'+':'')+c.parsed.y.toFixed(2)+'%'}}},
-    scales:{x:{grid:{color:'rgba(180,178,169,0.2)'},ticks:{color:'#898781',font:{size:11}}},
-            y:{grid:{color:'rgba(180,178,169,0.2)'},ticks:{color:'#898781',font:{size:11},callback:v=>v.toFixed(1)+'%'}}}}
-});
+allGroupNames.forEach(name=>{const color=groupColors[name]||'#898781';const isUs=name.includes('(us)');rankLegend.innerHTML+=`<span class="legend-item" style="${isUs?'font-weight:600':''}"><span class="legend-dot" style="background:${color}"></span>${name}</span>`;});
+new Chart(document.getElementById('rankChart'),{type:'line',data:{labels:rankChartLabels,datasets:rankChartDatasets},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.dataset.label+': '+(c.parsed.y>=0?'+':'')+c.parsed.y.toFixed(2)+'%'}}},scales:{x:{grid:{color:'rgba(180,178,169,0.2)'},ticks:{color:'#898781',font:{size:11}}},y:{grid:{color:'rgba(180,178,169,0.2)'},ticks:{color:'#898781',font:{size:11},callback:v=>v.toFixed(1)+'%'}}}}});
 
 const varContribs=[
-  {ticker:'SMH', pct:29.12,color:'#d03b3b'},{ticker:'VRT', pct:19.18,color:'#d03b3b'},
-  {ticker:'EWY', pct:12.38,color:'#eb6834'},{ticker:'TSM', pct:10.83,color:'#eb6834'},
-  {ticker:'ASML',pct:10.31,color:'#eda100'},{ticker:'NVDA',pct:5.86, color:'#eda100'},
-  {ticker:'ANET',pct:4.15, color:'#898781'},{ticker:'GSG', pct:3.15, color:'#1baf7a'},
-  {ticker:'AVGO',pct:3.12, color:'#898781'},{ticker:'DBMF',pct:1.32, color:'#1baf7a'},
-  {ticker:'AAPL',pct:0.58, color:'#1baf7a'},{ticker:'SGOV',pct:0.00, color:'#1baf7a'},
+  {ticker:'SMH', pct:29.39,color:'#d03b3b'},{ticker:'VRT', pct:20.35,color:'#d03b3b'},
+  {ticker:'TSM', pct:11.32,color:'#eb6834'},{ticker:'EWY', pct:11.21,color:'#eb6834'},
+  {ticker:'ASML',pct:10.84,color:'#eda100'},{ticker:'NVDA',pct:5.71, color:'#eda100'},
+  {ticker:'ANET',pct:4.46, color:'#898781'},{ticker:'GSG', pct:2.40, color:'#1baf7a'},
+  {ticker:'AVGO',pct:2.98, color:'#898781'},{ticker:'DBMF',pct:1.35, color:'#1baf7a'},
+  {ticker:'AAPL',pct:0.00, color:'#1baf7a'},{ticker:'SGOV',pct:0.00, color:'#1baf7a'},
 ];
 const varBarsEl=document.getElementById('varBars');
-varContribs.forEach(v=>{
-  varBarsEl.innerHTML+=`<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
-    <div style="font-family:monospace;font-size:11px;width:36px;color:#52514e;text-align:right">${v.ticker}</div>
-    <div style="flex:1;height:14px;background:#f1efe8;border-radius:3px;overflow:hidden">
-      <div style="height:100%;width:${v.pct*3}%;background:${v.color};border-radius:3px"></div>
-    </div>
-    <div style="font-size:11px;font-family:monospace;color:${v.color};width:38px">${v.pct.toFixed(1)}%</div>
-  </div>`;
-});
+varContribs.forEach(v=>{varBarsEl.innerHTML+=`<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px"><div style="font-family:monospace;font-size:11px;width:36px;color:#52514e;text-align:right">${v.ticker}</div><div style="flex:1;height:14px;background:#f1efe8;border-radius:3px;overflow:hidden"><div style="height:100%;width:${v.pct*3}%;background:${v.color};border-radius:3px"></div></div><div style="font-size:11px;font-family:monospace;color:${v.color};width:38px">${v.pct.toFixed(1)}%</div></div>`;});
 
-// Holdings - Jul 2 data with updated GARCH vols
 const holdings=[
-  {ticker:'SMH', name:'Semiconductor ETF',   value:15015132,pl:145684,  plPct:0.98,  weight:15.3,garchVol:70.1},
-  {ticker:'GSG', name:'Commodities ETF',      value:13970401,pl:-29588, plPct:-0.21, weight:14.0,garchVol:19.0},
-  {ticker:'DRAM',name:'Memory / storage ETF', value:10089752,pl:-744552,plPct:-6.87, weight:11.0,garchVol:125.7},
-  {ticker:'SGOV',name:'Short-term Treasuries',value:9974138, pl:-26823, plPct:-0.27, weight:10.0,garchVol:1.1},
-  {ticker:'NVDA',name:'NVIDIA',               value:8100780, pl:154160, plPct:1.94,  weight:8.0, garchVol:33.0},
-  {ticker:'VRT', name:'Vertiv Holdings',      value:8034636, pl:191178, plPct:2.44,  weight:7.9, garchVol:97.7},
-  {ticker:'TSM', name:'TSMC',                 value:6085951, pl:106723, plPct:1.78,  weight:6.2, garchVol:70.1},
-  {ticker:'DBMF',name:'Managed Futures ETF',  value:5695764, pl:42924,  plPct:0.76,  weight:5.7, garchVol:9.7},
-  {ticker:'ASML',name:'ASML Holding',         value:5068360, pl:118470, plPct:2.39,  weight:5.2, garchVol:79.2},
-  {ticker:'AAPL',name:'Apple',                value:5192863, pl:131947, plPct:2.61,  weight:5.0, garchVol:37.9},
-  {ticker:'EWY', name:'South Korea ETF',      value:4685730, pl:-256894,plPct:-5.20, weight:5.0, garchVol:98.4},
-  {ticker:'AVGO',name:'Broadcom',             value:3981485, pl:-48294, plPct:-1.20, weight:4.0, garchVol:40.8},
-  {ticker:'ANET',name:'Arista Networks',      value:3147618, pl:160574, plPct:5.38,  weight:3.1, garchVol:57.1},
+  {ticker:'SMH', name:'Semiconductor ETF',   value:14333418,pl:-536030,  plPct:-3.60, weight:15.3,garchVol:66.4},
+  {ticker:'GSG', name:'Commodities ETF',      value:13990126,pl:-9863,    plPct:-0.07, weight:14.0,garchVol:15.6},
+  {ticker:'DRAM',name:'Memory / storage ETF', value:9288516, pl:-1545788, plPct:-14.27,weight:11.0,garchVol:127.4},
+  {ticker:'SGOV',name:'Short-term Treasuries',value:9978111, pl:-22849,   plPct:-0.23, weight:10.0,garchVol:1.1},
+  {ticker:'NVDA',name:'NVIDIA',               value:7988030, pl:41410,    plPct:0.52,  weight:8.0, garchVol:29.4},
+  {ticker:'VRT', name:'Vertiv Holdings',      value:7753674, pl:-89784,   plPct:-1.14, weight:7.9, garchVol:96.4},
+  {ticker:'TSM', name:'TSMC',                 value:5947992, pl:-31236,   plPct:-0.52, weight:6.2, garchVol:68.1},
+  {ticker:'DBMF',name:'Managed Futures ETF',  value:5660306, pl:7465,     plPct:0.13,  weight:5.7, garchVol:9.3},
+  {ticker:'ASML',name:'ASML Holding',         value:4865630, pl:-84260,   plPct:-1.70, weight:5.2, garchVol:78.1},
+  {ticker:'AAPL',name:'Apple',                value:5444233, pl:383317,   plPct:7.57,  weight:5.0, garchVol:43.4},
+  {ticker:'EWY', name:'South Korea ETF',      value:4550336, pl:-392288,  plPct:-7.94, weight:5.0, garchVol:81.8},
+  {ticker:'AVGO',name:'Broadcom',             value:3885651, pl:-144129,  plPct:-3.58, weight:4.0, garchVol:37.0},
+  {ticker:'ANET',name:'Arista Networks',      value:3022371, pl:35326,    plPct:1.18,  weight:3.1, garchVol:57.6},
 ];
 
 const fmt=n=>'$'+Math.abs(n).toLocaleString('en-US',{maximumFractionDigits:0});
@@ -321,76 +294,36 @@ const tbody=document.getElementById('holdingsBody');
 holdings.forEach((h,i)=>{
   const plClass=h.pl>0?'pos':h.pl<0?'neg':'neu';
   const badgeClass=h.pl>0?'badge-pos':h.pl<0?'badge-neg':'badge-neu';
-  const plStr=h.pl===0?'$0':(sign(h.pl)+fmt(h.pl));
-  const pctStr=(sign(h.plPct)+Math.abs(h.plPct).toFixed(2)+'%');
+  const plStr=sign(h.pl)+fmt(h.pl);
+  const pctStr=(h.plPct>=0?'+':'')+Math.abs(h.plPct).toFixed(2)+'%';
   const vc=volColor(h.garchVol);
-  tbody.innerHTML+=`<tr>
-    <td class="muted">${i+1}</td><td class="mono">${h.ticker}</td><td class="muted">${h.name}</td>
-    <td style="text-align:right;color:#52514e;font-family:monospace;font-size:12px">${h.weight.toFixed(1)}%</td>
-    <td style="text-align:right">${fmt(h.value)}</td>
-    <td style="text-align:right" class="${plClass}">${plStr}</td>
-    <td style="text-align:right"><span class="badge ${badgeClass}">${pctStr}</span></td>
-    <td style="text-align:right;color:${vc};font-family:monospace;font-size:12px">${h.garchVol.toFixed(1)}%</td>
-  </tr>`;
+  tbody.innerHTML+=`<tr><td class="muted">${i+1}</td><td class="mono">${h.ticker}</td><td class="muted">${h.name}</td><td style="text-align:right;color:#52514e;font-family:monospace;font-size:12px">${h.weight.toFixed(1)}%</td><td style="text-align:right">${fmt(h.value)}</td><td style="text-align:right" class="${plClass}">${plStr}</td><td style="text-align:right"><span class="badge ${badgeClass}">${pctStr}</span></td><td style="text-align:right;color:${vc};font-family:monospace;font-size:12px">${h.garchVol.toFixed(1)}%</td></tr>`;
 });
-tbody.innerHTML+=`<tr class="cash-row">
-  <td class="muted">—</td><td class="mono">CASH</td><td>Cash balance</td>
-  <td style="text-align:right;color:#898781;font-family:monospace;font-size:12px">0.9%</td>
-  <td style="text-align:right">$927,579</td>
-  <td style="text-align:right" class="neu">—</td>
-  <td style="text-align:right"><span class="badge badge-neu">—</span></td>
-  <td style="text-align:right" class="neu">—</td>
-</tr>`;
+tbody.innerHTML+=`<tr class="cash-row"><td class="muted">—</td><td class="mono">CASH</td><td>Cash balance</td><td style="text-align:right;color:#898781;font-family:monospace;font-size:12px">1.0%</td><td style="text-align:right">$957,040</td><td style="text-align:right" class="neu">—</td><td style="text-align:right"><span class="badge badge-neu">—</span></td><td style="text-align:right" class="neu">—</td></tr>`;
 
-// Cumulative returns: Jun30=+1.34%, Jul1=+4.27%, Jul2=-0.03%
-// ACWI cumulative: Jun30=+1.00%, Jul1=+1.00%+0.74%=+1.74%, Jul2=1.74%-0.54%=+1.20%
-const historyLabels=['Jun 30','Jul 1','Jul 2'];
-const historyValues=[101.34,104.27,99.97];
-const historyPL=[1.34,4.27,-0.03];
-const portfolioCumReturn=[1.34,4.27,-0.03];
-const benchmarkCumReturn=[1.00,1.74,1.20];
+// Cumulative returns
+// ACWI: Jun30=+1.00%, Jul1=+1.74%, Jul2=+1.20%, Jul3=1.20%+0.02%=+1.22%
+const historyLabels=['Jun 30','Jul 1','Jul 2','Jul 3'];
+const historyValues=[101.34,104.27,99.97,97.67];
+const historyPL=[1.34,4.27,-0.03,-2.33];
+const portfolioCumReturn=[1.34,4.27,-0.03,-2.33];
+const benchmarkCumReturn=[1.00,1.74,1.20,1.22];
 
-const gridColor='rgba(180,178,169,0.2)';
-const tickColor='#898781';
+const gridColor='rgba(180,178,169,0.2)',tickColor='#898781';
 
-new Chart(document.getElementById('vsChart'),{
-  type:'line',
-  data:{labels:historyLabels,datasets:[
-    {label:'Our portfolio',data:portfolioCumReturn,borderColor:'#2a78d6',backgroundColor:'rgba(42,120,214,0.07)',borderWidth:2,pointRadius:5,pointBackgroundColor:'#2a78d6',pointBorderColor:'#fff',pointBorderWidth:2,fill:'+1',tension:0.3},
-    {label:'MSCI ACWI ETF',data:benchmarkCumReturn,borderColor:'#898781',borderDash:[5,4],borderWidth:2,pointRadius:5,pointBackgroundColor:'#898781',pointBorderColor:'#fff',pointBorderWidth:2,fill:false,tension:0.3}
-  ]},
-  options:{responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.dataset.label+': '+(c.parsed.y>=0?'+':'')+c.parsed.y.toFixed(2)+'%'}}},
-    scales:{x:{grid:{color:gridColor},ticks:{color:tickColor,font:{size:11}}},
-            y:{grid:{color:gridColor},ticks:{color:tickColor,font:{size:11},callback:v=>v.toFixed(1)+'%'}}}}
-});
+new Chart(document.getElementById('vsChart'),{type:'line',data:{labels:historyLabels,datasets:[
+  {label:'Our portfolio',data:portfolioCumReturn,borderColor:'#2a78d6',backgroundColor:'rgba(42,120,214,0.07)',borderWidth:2,pointRadius:5,pointBackgroundColor:'#2a78d6',pointBorderColor:'#fff',pointBorderWidth:2,fill:'+1',tension:0.3},
+  {label:'MSCI ACWI ETF',data:benchmarkCumReturn,borderColor:'#898781',borderDash:[5,4],borderWidth:2,pointRadius:5,pointBackgroundColor:'#898781',pointBorderColor:'#fff',pointBorderWidth:2,fill:false,tension:0.3}
+]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.dataset.label+': '+(c.parsed.y>=0?'+':'')+c.parsed.y.toFixed(2)+'%'}}},scales:{x:{grid:{color:gridColor},ticks:{color:tickColor,font:{size:11}}},y:{grid:{color:gridColor},ticks:{color:tickColor,font:{size:11},callback:v=>v.toFixed(1)+'%'}}}}});
 
 const alphaRow=document.getElementById('dailyAlphaRow');
 let alphaHtml='<strong style="color:#0b0b0b">Cumulative alpha (us vs. ACWI):</strong> ';
-historyLabels.forEach((label,i)=>{
-  const alpha=portfolioCumReturn[i]-benchmarkCumReturn[i];
-  const cls=alpha>=0?'pos':'neg';
-  alphaHtml+=`<span class="alpha-chip ${cls}">${label}: ${alpha>=0?'+':''}${alpha.toFixed(2)}%</span> `;
-});
+historyLabels.forEach((label,i)=>{const alpha=portfolioCumReturn[i]-benchmarkCumReturn[i];const cls=alpha>=0?'pos':'neg';alphaHtml+=`<span class="alpha-chip ${cls}">${label}: ${alpha>=0?'+':''}${alpha.toFixed(2)}%</span> `;});
 alphaRow.innerHTML=alphaHtml;
 
-new Chart(document.getElementById('valueChart'),{
-  type:'line',
-  data:{labels:historyLabels,datasets:[{data:historyValues,borderColor:'#2a78d6',backgroundColor:'rgba(42,120,214,0.07)',borderWidth:2,pointRadius:5,pointBackgroundColor:'#2a78d6',pointBorderColor:'#fff',pointBorderWidth:2,fill:true,tension:0.3}]},
-  options:{responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'$'+c.parsed.y.toFixed(2)+'M'}}},
-    scales:{x:{grid:{color:gridColor},ticks:{color:tickColor,font:{size:11}}},
-            y:{grid:{color:gridColor},ticks:{color:tickColor,font:{size:11},callback:v=>'$'+v.toFixed(1)+'M'},min:98,max:106}}}
-});
+new Chart(document.getElementById('valueChart'),{type:'line',data:{labels:historyLabels,datasets:[{data:historyValues,borderColor:'#2a78d6',backgroundColor:'rgba(42,120,214,0.07)',borderWidth:2,pointRadius:5,pointBackgroundColor:'#2a78d6',pointBorderColor:'#fff',pointBorderWidth:2,fill:true,tension:0.3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'$'+c.parsed.y.toFixed(2)+'M'}}},scales:{x:{grid:{color:gridColor},ticks:{color:tickColor,font:{size:11}}},y:{grid:{color:gridColor},ticks:{color:tickColor,font:{size:11},callback:v=>'$'+v.toFixed(1)+'M'},min:95,max:106}}}});
 
-new Chart(document.getElementById('plChart'),{
-  type:'bar',
-  data:{labels:historyLabels,datasets:[{data:historyPL,backgroundColor:historyPL.map(v=>v>=0?'rgba(12,163,12,0.7)':'rgba(208,59,59,0.7)'),borderRadius:4,borderSkipped:false}]},
-  options:{responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>(c.parsed.y>=0?'+':'')+c.parsed.y.toFixed(2)+'%'}}},
-    scales:{x:{grid:{display:false},ticks:{color:tickColor,font:{size:11}}},
-            y:{grid:{color:gridColor},ticks:{color:tickColor,font:{size:11},callback:v=>v.toFixed(1)+'%'}}}}
-});
+new Chart(document.getElementById('plChart'),{type:'bar',data:{labels:historyLabels,datasets:[{data:historyPL,backgroundColor:historyPL.map(v=>v>=0?'rgba(12,163,12,0.7)':'rgba(208,59,59,0.7)'),borderRadius:4,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>(c.parsed.y>=0?'+':'')+c.parsed.y.toFixed(2)+'%'}}},scales:{x:{grid:{display:false},ticks:{color:tickColor,font:{size:11}}},y:{grid:{color:gridColor},ticks:{color:tickColor,font:{size:11},callback:v=>v.toFixed(1)+'%'}}}}});
 </script>
 </body>
 </html>
