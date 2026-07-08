@@ -53,45 +53,46 @@
   .rank-table th{text-align:left;padding:8px 12px;font-size:11px;font-weight:500;color:#898781;border-bottom:.5px solid rgba(11,11,11,.1);background:#f9f9f8;white-space:nowrap}
   .rank-table td{padding:9px 12px;border-bottom:.5px solid rgba(11,11,11,.06);white-space:nowrap}
   .rank-table tr:last-child td{border-bottom:none}
-  .rank-table tr.us-row td{background:#FFF7DE;font-weight:600}
+  .rank-table tr.us-row td{background:#EAF3DE;font-weight:600}
   .rank-num{font-family:monospace;color:#898781}
-  .rank-num.first{color:#b8860b;font-weight:700}
+  .rank-num.top3{color:#185FA5;font-weight:700}
   .rank-name{font-weight:500}
   .rank-name.us{color:#185FA5}
   .rank-legend{display:flex;flex-wrap:wrap;gap:10px 16px;margin-bottom:.75rem;font-size:12px;color:#52514e}
-  .vol-achieved{background:#EAF3DE;border:1px solid #27500A;border-radius:8px;padding:.75rem 1rem;margin-bottom:1rem;font-size:13px;color:#27500A;font-weight:500}
+  .vol-banner{border-radius:8px;padding:.75rem 1rem;margin-bottom:1rem;font-size:13px;font-weight:500}
+  .vol-ok{background:#EAF3DE;border:1px solid #27500A;color:#27500A}
 </style>
 </head>
 <body>
 <div class="container">
 
-<h1>Portfolio tracker <span class="day-pill">Day 5 — Jul 7</span></h1>
+<h1>Portfolio tracker <span class="day-pill">Day 6 — Jul 8</span></h1>
 <p class="subtitle">StockTrak · NUS BMA5309 · $100M virtual fund · Long-only · Benchmark: iShares MSCI ACWI ETF (ACWI)</p>
 
 <div class="kpi-grid">
-  <div class="kpi"><div class="kpi-label">Portfolio value</div><div class="kpi-val">$98,345,865</div></div>
-  <div class="kpi"><div class="kpi-label">Total P&amp;L</div><div class="kpi-val neg">-$1,654,135</div></div>
-  <div class="kpi"><div class="kpi-label">Total return</div><div class="kpi-val neg">-1.65%</div></div>
-  <div class="kpi"><div class="kpi-label">Cash balance</div><div class="kpi-val">$957,433</div></div>
+  <div class="kpi"><div class="kpi-label">Portfolio value</div><div class="kpi-val pos">$100,488,788</div></div>
+  <div class="kpi"><div class="kpi-label">Total P&amp;L</div><div class="kpi-val pos">+$488,788</div></div>
+  <div class="kpi"><div class="kpi-label">Total return</div><div class="kpi-val pos">+0.49%</div></div>
+  <div class="kpi"><div class="kpi-label">Cash balance</div><div class="kpi-val">$957,512</div></div>
 </div>
 
 <div class="sec">Vs. benchmark — MSCI ACWI ETF (ACWI)</div>
 <div class="card vs-card">
-  <div class="vs-block"><div class="vs-label">Our portfolio</div><div class="vs-val neg">-1.65%</div></div>
+  <div class="vs-block"><div class="vs-label">Our portfolio</div><div class="vs-val pos">+0.49%</div></div>
   <div class="vs-div"></div>
-  <div class="vs-block"><div class="vs-label">MSCI ACWI ETF</div><div class="vs-val pos">+0.26%</div></div>
+  <div class="vs-block"><div class="vs-label">MSCI ACWI ETF</div><div class="vs-val neg">-0.10%</div></div>
   <div class="vs-div"></div>
-  <div class="vs-block"><div class="vs-label">Cumulative alpha</div><div class="vs-val neg">-1.91%</div></div>
+  <div class="vs-block"><div class="vs-label">Cumulative alpha</div><div class="vs-val pos">+0.59%</div></div>
 </div>
 
 <div class="sec">Portfolio volatility vs. target</div>
 <div class="card" style="padding:1.25rem">
-  <div class="vol-achieved">✅ Vol target achieved! GARCH portfolio vol = 23.44% — now BELOW the 30% target for the first time.</div>
+  <div class="vol-banner vol-ok">✅ Vol target maintained — GARCH portfolio vol = 23.39% (below 30% target for 2nd consecutive day)</div>
   <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:1.25rem">
     <div style="text-align:center">
       <div style="font-size:12px;color:#898781;margin-bottom:4px">Portfolio vol — GARCH M1 (excl. DRAM)</div>
-      <div style="font-size:28px;font-weight:600;color:#0ca30c">23.44%</div>
-      <div style="font-size:11px;color:#898781">annualized · 1.48% / day</div>
+      <div style="font-size:28px;font-weight:600;color:#0ca30c">23.39%</div>
+      <div style="font-size:11px;color:#898781">annualized · 1.47% / day</div>
     </div>
     <div style="text-align:center">
       <div style="font-size:12px;color:#898781;margin-bottom:4px">Vol target (upper bound)</div>
@@ -100,14 +101,14 @@
     </div>
     <div style="text-align:center">
       <div style="font-size:12px;color:#898781;margin-bottom:4px">Headroom below target</div>
-      <div style="font-size:28px;font-weight:600;color:#0ca30c">-6.56%</div>
-      <div style="font-size:11px;color:#898781">21.9% below target</div>
+      <div style="font-size:28px;font-weight:600;color:#0ca30c">-6.61%</div>
+      <div style="font-size:11px;color:#898781">22.0% below target</div>
     </div>
   </div>
   <div style="margin-bottom:8px">
     <div style="display:flex;justify-content:space-between;font-size:11px;color:#898781;margin-bottom:4px">
       <span>0%</span>
-      <span style="color:#2a78d6;font-weight:500">GARCH 23.44% ▼</span>
+      <span style="color:#2a78d6;font-weight:500">GARCH 23.39% ▼</span>
       <span style="color:#0ca30c;font-weight:500">▼ Target 30%</span>
       <span>70%</span>
     </div>
@@ -115,7 +116,7 @@
       <div style="position:absolute;left:0;top:0;height:100%;width:42.86%;background:linear-gradient(90deg,#c8f0c0,#EAF3DE);border-radius:6px 0 0 6px"></div>
       <div style="position:absolute;left:42.86%;top:0;height:100%;width:28.57%;background:linear-gradient(90deg,#FAEEDA,#fde8c0)"></div>
       <div style="position:absolute;left:71.43%;top:0;height:100%;width:28.57%;background:linear-gradient(90deg,#fde8c0,#FCEBEB);border-radius:0 6px 6px 0"></div>
-      <div style="position:absolute;left:33.49%;top:-4px;width:3px;height:20px;background:#2a78d6;border-radius:1px"></div>
+      <div style="position:absolute;left:33.41%;top:-4px;width:3px;height:20px;background:#2a78d6;border-radius:1px"></div>
       <div style="position:absolute;left:42.86%;top:-4px;width:2px;height:20px;background:#0ca30c;border-radius:1px"></div>
     </div>
     <div style="display:flex;gap:12px;margin-top:8px;font-size:11px">
@@ -128,11 +129,11 @@
     <div style="font-size:12px;font-weight:500;color:#52514e;margin-bottom:4px">GARCH variance contribution — σ²_p = w' · [D<sub>GARCH</sub> · ρ<sub>hist</sub> · D<sub>GARCH</sub>] · w</div>
     <div style="font-size:11px;color:#898781;margin-bottom:8px">DRAM excluded (ETF too new). Remaining weights rescaled to 100%.</div>
     <div id="varBars"></div>
-    <div style="font-size:11px;color:#898781;margin-top:8px">Diversification benefit: weighted avg. GARCH vol ~40% → portfolio vol 23.4% (−16.6% from correlations)</div>
+    <div style="font-size:11px;color:#898781;margin-top:8px">Diversification benefit: weighted avg. GARCH vol ~44% → portfolio vol 23.4% (−20.6% from correlations)</div>
   </div>
 </div>
 
-<div class="sec">Class rankings <span style="text-transform:none;font-weight:400;color:#d03b3b">⚠️ Rank #8 — Jul 7</span></div>
+<div class="sec">Class rankings <span style="text-transform:none;font-weight:400;color:#0ca30c">🚀 Rank #3 — Jul 8</span></div>
 <div class="card">
   <div class="rank-table-wrap">
   <table class="rank-table">
@@ -154,7 +155,7 @@
   <div class="chart-wrap"><canvas id="rankChart"></canvas></div>
 </div>
 
-<div class="sec">Holdings — Jul 7, 2026</div>
+<div class="sec">Holdings — Jul 8, 2026</div>
 <div class="card" style="overflow-x:auto">
   <table style="min-width:700px">
     <colgroup>
@@ -195,7 +196,7 @@
 </div>
 
 <p class="note">Data from StockTrak & Yahoo Finance (ACWI). GARCH M1: conditional vol × historical correlation. DRAM excluded from portfolio vol. Jul 4 = US Independence Day (market closed). Updated daily.</p>
-<p class="updated">Last updated: Jul 7, 2026</p>
+<p class="updated">Last updated: Jul 8, 2026</p>
 </div>
 
 <script>
@@ -249,6 +250,17 @@ const rankingsHistory = [
     {rank:8,name:'GROUP-8 (us)',mktValue:97388431.30,portValue:98345864.57,trades:13,ret:-1.65,isUs:true},
     {rank:9,name:'Group_2',mktValue:56353307.40,portValue:98315154.53,trades:48,ret:-1.68,isUs:false},
   ]},
+  { date:'Jul 8', groups:[
+    {rank:1,name:'GROUP-9',mktValue:100715868.71,portValue:101017132.00,trades:5,ret:1.02,isUs:false},
+    {rank:2,name:'Group7',mktValue:100668685.22,portValue:100679103.20,trades:5,ret:0.68,isUs:false},
+    {rank:3,name:'GROUP-8 (us)',mktValue:99531275.69,portValue:100488787.65,trades:13,ret:0.49,isUs:true},
+    {rank:4,name:'group5_hew',mktValue:100452745.01,portValue:100465429.54,trades:12,ret:0.47,isUs:false},
+    {rank:5,name:'Group_1',mktValue:92275607.80,portValue:100403800.49,trades:37,ret:0.40,isUs:false},
+    {rank:6,name:'Group+3',mktValue:98849388.18,portValue:99623914.93,trades:30,ret:-0.38,isUs:false},
+    {rank:7,name:'wesleyqie',mktValue:98904374.95,portValue:98906405.57,trades:15,ret:-1.09,isUs:false},
+    {rank:8,name:'Group_6',mktValue:92208750.00,portValue:98727923.69,trades:7,ret:-1.27,isUs:false},
+    {rank:9,name:'Group_2',mktValue:56472065.30,portValue:98437361.35,trades:48,ret:-1.56,isUs:false},
+  ]},
 ];
 
 const groupColors={
@@ -261,9 +273,12 @@ const fmtFull=n=>'$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFr
 const latestDay=rankingsHistory[rankingsHistory.length-1];
 const rankBody=document.getElementById('rankBody');
 latestDay.groups.forEach(r=>{
-  const rc=r.isUs?'us-row':'',rnc=r.rank===1?'first':'',nc=r.isUs?'us':'';
+  const rc=r.isUs?'us-row':'';
+  const rnc=r.rank<=3?'top3':'';
+  const nc=r.isUs?'us':'';
   const retClass=r.ret>=0?'pos':'neg';
-  rankBody.innerHTML+=`<tr class="${rc}"><td class="rank-num ${rnc}">${r.rank===1?'🏆 1':r.rank}</td><td class="rank-name ${nc}">${r.name}</td><td style="text-align:right">${fmtFull(r.mktValue)}</td><td style="text-align:right">${fmtFull(r.portValue)}</td><td style="text-align:right">${r.trades}</td><td style="text-align:right" class="${retClass}">${r.ret>=0?'+':''}${r.ret.toFixed(2)}%</td></tr>`;
+  const medal=r.rank===1?'🥇':r.rank===2?'🥈':r.rank===3?'🥉':r.rank;
+  rankBody.innerHTML+=`<tr class="${rc}"><td class="rank-num ${rnc}">${medal}</td><td class="rank-name ${nc}">${r.name}</td><td style="text-align:right">${fmtFull(r.mktValue)}</td><td style="text-align:right">${fmtFull(r.portValue)}</td><td style="text-align:right">${r.trades}</td><td style="text-align:right" class="${retClass}">${r.ret>=0?'+':''}${r.ret.toFixed(2)}%</td></tr>`;
 });
 
 const allGroupNames=[...new Set(rankingsHistory.flatMap(d=>d.groups.map(g=>g.name)))];
@@ -277,30 +292,30 @@ allGroupNames.forEach(name=>{const color=groupColors[name]||'#898781';const isUs
 new Chart(document.getElementById('rankChart'),{type:'line',data:{labels:rankChartLabels,datasets:rankChartDatasets},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.dataset.label+': '+(c.parsed.y>=0?'+':'')+c.parsed.y.toFixed(2)+'%'}}},scales:{x:{grid:{color:'rgba(180,178,169,0.2)'},ticks:{color:'#898781',font:{size:11}}},y:{grid:{color:'rgba(180,178,169,0.2)'},ticks:{color:'#898781',font:{size:11},callback:v=>v.toFixed(1)+'%'}}}}});
 
 const varContribs=[
-  {ticker:'SMH', pct:31.10,color:'#d03b3b'},{ticker:'VRT', pct:14.35,color:'#eb6834'},
-  {ticker:'EWY', pct:10.12,color:'#eb6834'},{ticker:'ASML',pct:10.05,color:'#eda100'},
-  {ticker:'NVDA',pct:8.32, color:'#eda100'},{ticker:'GSG', pct:8.12, color:'#1baf7a'},
-  {ticker:'TSM', pct:7.23, color:'#eda100'},{ticker:'AVGO',pct:4.60, color:'#898781'},
-  {ticker:'ANET',pct:3.81, color:'#898781'},{ticker:'DBMF',pct:2.08, color:'#1baf7a'},
-  {ticker:'AAPL',pct:0.23, color:'#1baf7a'},{ticker:'SGOV',pct:0.00, color:'#1baf7a'},
+  {ticker:'SMH', pct:32.03,color:'#d03b3b'},{ticker:'VRT', pct:12.31,color:'#eb6834'},
+  {ticker:'NVDA',pct:10.47,color:'#eb6834'},{ticker:'ASML',pct:10.28,color:'#eda100'},
+  {ticker:'EWY', pct:9.52, color:'#eda100'},{ticker:'TSM', pct:8.25, color:'#eda100'},
+  {ticker:'GSG', pct:5.67, color:'#1baf7a'},{ticker:'AVGO',pct:5.52, color:'#898781'},
+  {ticker:'ANET',pct:3.74, color:'#898781'},{ticker:'DBMF',pct:1.90, color:'#1baf7a'},
+  {ticker:'AAPL',pct:0.30, color:'#1baf7a'},{ticker:'SGOV',pct:0.00, color:'#1baf7a'},
 ];
 const varBarsEl=document.getElementById('varBars');
 varContribs.forEach(v=>{varBarsEl.innerHTML+=`<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px"><div style="font-family:monospace;font-size:11px;width:36px;color:#52514e;text-align:right">${v.ticker}</div><div style="flex:1;height:14px;background:#f1efe8;border-radius:3px;overflow:hidden"><div style="height:100%;width:${v.pct*3}%;background:${v.color};border-radius:3px"></div></div><div style="font-size:11px;font-family:monospace;color:${v.color};width:38px">${v.pct.toFixed(1)}%</div></div>`;});
 
 const holdings=[
-  {ticker:'SMH', name:'Semiconductor ETF',   value:14071090,pl:-798358,  plPct:-5.37, weight:15.3,garchVol:54.6},
-  {ticker:'GSG', name:'Commodities ETF',      value:14438876,pl:438887,   plPct:3.13,  weight:14.0,garchVol:28.1},
-  {ticker:'DRAM',name:'Memory / storage ETF', value:9282388, pl:-1551916, plPct:-14.32,weight:11.0,garchVol:101.4},
-  {ticker:'SGOV',name:'Short-term Treasuries',value:9980098, pl:-20862,   plPct:-0.21, weight:10.0,garchVol:1.1},
-  {ticker:'NVDA',name:'NVIDIA',               value:8074130, pl:127510,   plPct:1.60,  weight:8.0, garchVol:28.8},
-  {ticker:'VRT', name:'Vertiv Holdings',      value:7883964, pl:40506,    plPct:0.52,  weight:7.9, garchVol:92.6},
-  {ticker:'TSM', name:'TSMC',                 value:5926209, pl:-53019,   plPct:-0.89, weight:6.2, garchVol:62.7},
-  {ticker:'DBMF',name:'Managed Futures ETF',  value:5725624, pl:72783,    plPct:1.29,  weight:5.7, garchVol:9.8},
-  {ticker:'ASML',name:'ASML Holding',         value:4805020, pl:-144870,  plPct:-2.93, weight:5.2, garchVol:66.7},
-  {ticker:'AAPL',name:'Apple',                value:5480042, pl:419126,   plPct:8.28,  weight:5.0, garchVol:42.6},
-  {ticker:'EWY', name:'South Korea ETF',      value:4579385, pl:-363239,  plPct:-7.35, weight:5.0, garchVol:64.8},
-  {ticker:'AVGO',name:'Broadcom',             value:3997008, pl:-32771,   plPct:-0.81, weight:4.0, garchVol:36.9},
-  {ticker:'ANET',name:'Arista Networks',      value:3144596, pl:157551,   plPct:5.27,  weight:3.1, garchVol:57.0},
+  {ticker:'SMH', name:'Semiconductor ETF',   value:14350600,pl:-518848,  plPct:-3.49, weight:15.3,garchVol:57.1},
+  {ticker:'GSG', name:'Commodities ETF',      value:14774205,pl:774216,   plPct:5.53,  weight:14.0,garchVol:23.2},
+  {ticker:'DRAM',name:'Memory / storage ETF', value:9504528, pl:-1329776, plPct:-12.27,weight:11.0,garchVol:112.1},
+  {ticker:'SGOV',name:'Short-term Treasuries',value:9981092, pl:-19869,   plPct:-0.20, weight:10.0,garchVol:1.2},
+  {ticker:'NVDA',name:'NVIDIA',               value:8368920, pl:422300,   plPct:5.31,  weight:8.0, garchVol:36.1},
+  {ticker:'VRT', name:'Vertiv Holdings',      value:8199498, pl:356040,   plPct:4.54,  weight:7.9, garchVol:85.0},
+  {ticker:'TSM', name:'TSMC',                 value:5986626, pl:7398,     plPct:0.12,  weight:6.2, garchVol:60.9},
+  {ticker:'DBMF',name:'Managed Futures ETF',  value:5748019, pl:95178,    plPct:1.68,  weight:5.7, garchVol:9.9},
+  {ticker:'ASML',name:'ASML Holding',         value:4863788, pl:-86103,   plPct:-1.74, weight:5.2, garchVol:69.3},
+  {ticker:'AAPL',name:'Apple',                value:5528200, pl:467284,   plPct:9.23,  weight:5.0, garchVol:41.8},
+  {ticker:'EWY', name:'South Korea ETF',      value:4615507, pl:-327117,  plPct:-6.62, weight:5.0, garchVol:68.7},
+  {ticker:'AVGO',name:'Broadcom',             value:4190078, pl:160299,   plPct:3.98,  weight:4.0, garchVol:57.1},
+  {ticker:'ANET',name:'Arista Networks',      value:3420216, pl:433171,   plPct:14.50, weight:3.1, garchVol:62.0},
 ];
 
 const fmt=n=>'$'+Math.abs(n).toLocaleString('en-US',{maximumFractionDigits:0});
@@ -316,15 +331,14 @@ holdings.forEach((h,i)=>{
   const vc=volColor(h.garchVol);
   tbody.innerHTML+=`<tr><td class="muted">${i+1}</td><td class="mono">${h.ticker}</td><td class="muted">${h.name}</td><td style="text-align:right;color:#52514e;font-family:monospace;font-size:12px">${h.weight.toFixed(1)}%</td><td style="text-align:right">${fmt(h.value)}</td><td style="text-align:right" class="${plClass}">${plStr}</td><td style="text-align:right"><span class="badge ${badgeClass}">${pctStr}</span></td><td style="text-align:right;color:${vc};font-family:monospace;font-size:12px">${h.garchVol.toFixed(1)}%</td></tr>`;
 });
-tbody.innerHTML+=`<tr class="cash-row"><td class="muted">—</td><td class="mono">CASH</td><td>Cash balance</td><td style="text-align:right;color:#898781;font-family:monospace;font-size:12px">1.0%</td><td style="text-align:right">$957,433</td><td style="text-align:right" class="neu">—</td><td style="text-align:right"><span class="badge badge-neu">—</span></td><td style="text-align:right" class="neu">—</td></tr>`;
+tbody.innerHTML+=`<tr class="cash-row"><td class="muted">—</td><td class="mono">CASH</td><td>Cash balance</td><td style="text-align:right;color:#898781;font-family:monospace;font-size:12px">1.0%</td><td style="text-align:right">$957,512</td><td style="text-align:right" class="neu">—</td><td style="text-align:right"><span class="badge badge-neu">—</span></td><td style="text-align:right" class="neu">—</td></tr>`;
 
-// Cumulative returns — skip Jul 4 (US holiday)
-// ACWI: Jun30=+1.00%, Jul1=+1.74%, Jul2=+1.20%, Jul3=+1.22%, Jul7=+0.26%
-const historyLabels=['Jun 30','Jul 1','Jul 2','Jul 3','Jul 7'];
-const historyValues=[101.34,104.27,99.97,97.67,98.35];
-const historyPL=[1.34,4.27,-0.03,-2.33,-1.65];
-const portfolioCumReturn=[1.34,4.27,-0.03,-2.33,-1.65];
-const benchmarkCumReturn=[1.00,1.74,1.20,1.22,0.26];
+// ACWI cumulative: Jun30=+1.00, Jul1=+1.74, Jul2=+1.20, Jul3=+1.22, Jul7=+0.26, Jul8=0.26-0.36=-0.10
+const historyLabels=['Jun 30','Jul 1','Jul 2','Jul 3','Jul 7','Jul 8'];
+const historyValues=[101.34,104.27,99.97,97.67,98.35,100.49];
+const historyPL=[1.34,4.27,-0.03,-2.33,-1.65,0.49];
+const portfolioCumReturn=[1.34,4.27,-0.03,-2.33,-1.65,0.49];
+const benchmarkCumReturn=[1.00,1.74,1.20,1.22,0.26,-0.10];
 
 const gridColor='rgba(180,178,169,0.2)',tickColor='#898781';
 
@@ -338,7 +352,7 @@ let alphaHtml='<strong style="color:#0b0b0b">Cumulative alpha (us vs. ACWI):</st
 historyLabels.forEach((label,i)=>{const alpha=portfolioCumReturn[i]-benchmarkCumReturn[i];const cls=alpha>=0?'pos':'neg';alphaHtml+=`<span class="alpha-chip ${cls}">${label}: ${alpha>=0?'+':''}${alpha.toFixed(2)}%</span> `;});
 alphaRow.innerHTML=alphaHtml;
 
-new Chart(document.getElementById('valueChart'),{type:'line',data:{labels:historyLabels,datasets:[{data:historyValues,borderColor:'#2a78d6',backgroundColor:'rgba(42,120,214,0.07)',borderWidth:2,pointRadius:5,pointBackgroundColor:'#2a78d6',pointBorderColor:'#fff',pointBorderWidth:2,fill:true,tension:0.3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'$'+c.parsed.y.toFixed(2)+'M'}}},scales:{x:{grid:{color:gridColor},ticks:{color:tickColor,font:{size:11}}},y:{grid:{color:gridColor},ticks:{color:tickColor,font:{size:11},callback:v=>'$'+v.toFixed(1)+'M'},min:95,max:106}}}});
+new Chart(document.getElementById('valueChart'),{type:'line',data:{labels:historyLabels,datasets:[{data:historyValues,borderColor:'#2a78d6',backgroundColor:'rgba(42,120,214,0.07)',borderWidth:2,pointRadius:5,pointBackgroundColor:'#2a78d6',pointBorderColor:'#fff',pointBorderWidth:2,fill:true,tension:0.3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'$'+c.parsed.y.toFixed(2)+'M'}}},scales:{x:{grid:{color:gridColor},ticks:{color:tickColor,font:{size:11}}},y:{grid:{color:gridColor},ticks:{color:tickColor,font:{size:11},callback:v=>'$'+v.toFixed(1)+'M'},min:95,max:107}}}});
 
 new Chart(document.getElementById('plChart'),{type:'bar',data:{labels:historyLabels,datasets:[{data:historyPL,backgroundColor:historyPL.map(v=>v>=0?'rgba(12,163,12,0.7)':'rgba(208,59,59,0.7)'),borderRadius:4,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>(c.parsed.y>=0?'+':'')+c.parsed.y.toFixed(2)+'%'}}},scales:{x:{grid:{display:false},ticks:{color:tickColor,font:{size:11}}},y:{grid:{color:gridColor},ticks:{color:tickColor,font:{size:11},callback:v=>v.toFixed(1)+'%'}}}}});
 </script>
