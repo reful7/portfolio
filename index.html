@@ -69,23 +69,23 @@
 <body>
 <div class="container">
 
-<h1>Portfolio tracker <span class="restructure-pill">Book 2.2</span> <span class="day-pill">Jul 22</span></h1>
+<h1>Portfolio tracker <span class="restructure-pill">Book 2.2</span> <span class="day-pill">Jul 23</span></h1>
 <p class="subtitle">StockTrak · NUS BMA5309 · $100M virtual fund · Long-only, ETF-only · 70/30 conviction/diversifier mandate · Benchmark: iShares MSCI ACWI ETF (ACWI)</p>
 
 <div class="kpi-grid">
-  <div class="kpi"><div class="kpi-label">Portfolio value</div><div class="kpi-val neg">$99,408,966</div></div>
-  <div class="kpi"><div class="kpi-label">Total P&amp;L</div><div class="kpi-val neg">-$591,034</div></div>
-  <div class="kpi"><div class="kpi-label">Total return</div><div class="kpi-val neg">-0.59%</div></div>
-  <div class="kpi"><div class="kpi-label">Cash balance</div><div class="kpi-val">$156,013</div></div>
+  <div class="kpi"><div class="kpi-label">Portfolio value</div><div class="kpi-val neg">$98,977,327</div></div>
+  <div class="kpi"><div class="kpi-label">Total P&amp;L</div><div class="kpi-val neg">-$1,022,673</div></div>
+  <div class="kpi"><div class="kpi-label">Total return</div><div class="kpi-val neg">-1.02%</div></div>
+  <div class="kpi"><div class="kpi-label">Cash balance</div><div class="kpi-val">$156,026</div></div>
 </div>
 
 <div class="sec">Vs. benchmark — MSCI ACWI ETF (ACWI)</div>
 <div class="card vs-card">
-  <div class="vs-block"><div class="vs-label">Our portfolio</div><div class="vs-val neg">-0.59%</div></div>
+  <div class="vs-block"><div class="vs-label">Our portfolio</div><div class="vs-val neg">-1.02%</div></div>
   <div class="vs-div"></div>
-  <div class="vs-block"><div class="vs-label">MSCI ACWI ETF</div><div class="vs-val pos">+0.08%</div></div>
+  <div class="vs-block"><div class="vs-label">MSCI ACWI ETF</div><div class="vs-val neg">-1.10%</div></div>
   <div class="vs-div"></div>
-  <div class="vs-block"><div class="vs-label">Cumulative alpha</div><div class="vs-val neg">-0.67%</div></div>
+  <div class="vs-block"><div class="vs-label">Cumulative alpha</div><div class="vs-val pos">+0.08%</div></div>
 </div>
 
 <div class="sec">Portfolio volatility vs. target</div>
@@ -136,7 +136,7 @@
   </div>
 </div>
 
-<div class="sec">Class rankings <span style="text-transform:none;font-weight:400;color:#898781">Rank #6 — Jul 22</span></div>
+<div class="sec">Class rankings <span style="text-transform:none;font-weight:400;color:#898781">Rank #6 — Jul 23</span></div>
 <div class="card">
   <div class="rank-table-wrap">
   <table class="rank-table">
@@ -158,7 +158,7 @@
   <div class="chart-wrap"><canvas id="rankChart"></canvas></div>
 </div>
 
-<div class="sec">Holdings — Jul 22, 2026 <span class="leg-badge">Book 2.2 — 10 lines</span></div>
+<div class="sec">Holdings — Jul 23, 2026 <span class="leg-badge">Book 2.2 — 10 lines</span></div>
 <div class="card" style="overflow-x:auto">
   <table style="min-width:760px">
     <colgroup>
@@ -199,7 +199,7 @@
 </div>
 
 <p class="note">Data from StockTrak & Yahoo Finance (ACWI). Book 2.2 restructure executed Jul 13, 2026 (19 tickets: 12 sells, 7 new buys, per Group 8 team proposal). GARCH M1: conditional vol × historical correlation, carried from Jul 13 refit (no new price history since). DRAM excluded from portfolio vol. Jul 4 = US Independence Day; Jul 11–12, Jul 14 = no portfolio snapshot taken. Updated daily.</p>
-<p class="updated">Last updated: Jul 22, 2026</p>
+<p class="updated">Last updated: Jul 23, 2026</p>
 </div>
 
 <script>
@@ -363,6 +363,17 @@ const rankingsHistory = [
     {rank:8,name:'Group_2',mktValue:97364220.70,portValue:98268799.32,trades:52,ret:-1.73,isUs:false},
     {rank:9,name:'Group_6',mktValue:92945735.06,portValue:98245870.93,trades:48,ret:-1.75,isUs:false},
   ]},
+  { date:'Jul 23', groups:[
+    {rank:1,name:'group5_hew',mktValue:96094469.22,portValue:102489183.83,trades:88,ret:2.49,isUs:false},
+    {rank:2,name:'GROUP-9',mktValue:100853049.56,portValue:101146479.62,trades:13,ret:1.15,isUs:false},
+    {rank:3,name:'Group_1',mktValue:98342607.31,portValue:100611505.65,trades:64,ret:0.61,isUs:false},
+    {rank:4,name:'Group7',mktValue:98304624.78,portValue:99526743.43,trades:22,ret:-0.47,isUs:false},
+    {rank:5,name:'Group+3',mktValue:99155721.38,portValue:99169160.65,trades:36,ret:-0.83,isUs:false},
+    {rank:6,name:'GROUP-8 (us)',mktValue:98821300.78,portValue:98977326.83,trades:34,ret:-1.02,isUs:true},
+    {rank:7,name:'wesleyqie',mktValue:86960245.35,portValue:97875474.61,trades:32,ret:-2.12,isUs:false},
+    {rank:8,name:'Group_2',mktValue:96797110.40,portValue:97701763.37,trades:52,ret:-2.30,isUs:false},
+    {rank:9,name:'Group_6',mktValue:97628014.80,portValue:97628188.51,trades:59,ret:-2.37,isUs:false},
+  ]},
 ];
 
 const groupColors={
@@ -408,16 +419,16 @@ varContribs.forEach(v=>{
 });
 
 const holdings=[
-  {ticker:'SGOV',leg:'Cash',              name:'0-3mo Treasuries',       value:24966203.80,pl:4952.24,     plPct:0.02,  weight:25.12,garchVol:1.2},
-  {ticker:'DTCR',leg:'Datacenter',        name:'Global X Data Center ETF',value:15764746.50,pl:-88503.84,  plPct:-0.56, weight:15.86,garchVol:32.3},
-  {ticker:'EWT', leg:'Asia supply chain', name:'iShares MSCI Taiwan ETF', value:12546701.92,pl:-193728.58,  plPct:-1.52, weight:12.62,garchVol:43.1},
-  {ticker:'AIQ', leg:'Apps / software',   name:'Global X AI & Tech ETF',  value:12295322.30,pl:-370045.45, plPct:-2.92, weight:12.37,garchVol:37.6},
-  {ticker:'SMH', leg:'Core semis',        name:'VanEck Semiconductor ETF',value:8656335.59, pl:-406039.97,  plPct:-4.48, weight:8.71, garchVol:49.1},
-  {ticker:'DRAM',leg:'Memory',            name:'Roundhill Memory ETF',    value:7092653.98, pl:-1589923.30, plPct:-18.31,weight:7.13, garchVol:95.5},
-  {ticker:'GRID',leg:'Power (grid)',      name:'First Trust Clean Edge Smart Grid',value:5799944.86, pl:-70060.84, plPct:-1.19, weight:5.83, garchVol:27.8},
-  {ticker:'GSG', leg:'Diversifier',       name:'iShares S&P GSCI Commodity ETF',value:5416067.25, pl:677634.30,  plPct:14.30, weight:5.45, garchVol:27.5},
-  {ticker:'NLR', leg:'Power (nuclear)',   name:'VanEck Uranium & Nuclear ETF',value:3482162.79, pl:-9378.30,   plPct:-0.27, weight:3.50, garchVol:40.3},
-  {ticker:'AIPO',leg:'Power (equipment)', name:'Defiance AI & Power Infrastructure ETF',value:3232813.92, pl:-36211.87,  plPct:-1.11, weight:3.25, garchVol:41.0},
+  {ticker:'SGOV',leg:'Cash',              name:'0-3mo Treasuries',       value:24968685.53,pl:7433.97,     plPct:0.03,  weight:25.23,garchVol:1.2},
+  {ticker:'DTCR',leg:'Datacenter',        name:'Global X Data Center ETF',value:15643053.72,pl:-210196.62, plPct:-1.33, weight:15.80,garchVol:32.3},
+  {ticker:'EWT', leg:'Asia supply chain', name:'iShares MSCI Taiwan ETF', value:12319656.96,pl:-420773.54,  plPct:-3.30, weight:12.45,garchVol:43.1},
+  {ticker:'AIQ', leg:'Apps / software',   name:'Global X AI & Tech ETF',  value:12129721.85,pl:-535645.90, plPct:-4.23, weight:12.25,garchVol:37.6},
+  {ticker:'SMH', leg:'Core semis',        name:'VanEck Semiconductor ETF',value:8556927.33, pl:-505448.23,  plPct:-5.58, weight:8.65, garchVol:49.1},
+  {ticker:'DRAM',leg:'Memory',            name:'Roundhill Memory ETF',    value:7157724.20, pl:-1524853.08, plPct:-17.56,weight:7.23, garchVol:95.5},
+  {ticker:'GRID',leg:'Power (grid)',      name:'First Trust Clean Edge Smart Grid',value:5778412.40, pl:-91593.30, plPct:-1.56, weight:5.84, garchVol:27.8},
+  {ticker:'GSG', leg:'Diversifier',       name:'iShares S&P GSCI Commodity ETF',value:5531231.70, pl:792798.75,  plPct:16.73, weight:5.59, garchVol:27.5},
+  {ticker:'NLR', leg:'Power (nuclear)',   name:'VanEck Uranium & Nuclear ETF',value:3482788.01, pl:-8753.08,   plPct:-0.25, weight:3.52, garchVol:40.3},
+  {ticker:'AIPO',leg:'Power (equipment)', name:'Defiance AI & Power Infrastructure ETF',value:3253099.08, pl:-15926.71,  plPct:-0.49, weight:3.29, garchVol:41.0},
 ];
 
 const fmt=n=>'$'+Math.abs(n).toLocaleString('en-US',{maximumFractionDigits:0});
@@ -433,15 +444,15 @@ holdings.forEach((h,i)=>{
   const vc=volColor(h.garchVol);
   tbody.innerHTML+=`<tr><td class="muted">${i+1}</td><td class="mono">${h.ticker}</td><td class="muted" style="font-size:11px">${h.leg}</td><td class="muted">${h.name}</td><td style="text-align:right;color:#52514e;font-family:monospace;font-size:12px">${h.weight.toFixed(1)}%</td><td style="text-align:right">${fmt(h.value)}</td><td style="text-align:right" class="${plClass}">${plStr}</td><td style="text-align:right"><span class="badge ${badgeClass}">${pctStr}</span></td><td style="text-align:right;color:${vc};font-family:monospace;font-size:12px">${h.garchVol.toFixed(1)}%</td></tr>`;
 });
-tbody.innerHTML+=`<tr class="cash-row"><td class="muted">—</td><td class="mono">CASH</td><td colspan="2">Idle cash balance</td><td style="text-align:right;color:#898781;font-family:monospace;font-size:12px">0.2%</td><td style="text-align:right">$156,013</td><td style="text-align:right" class="neu">—</td><td style="text-align:right"><span class="badge badge-neu">—</span></td><td style="text-align:right" class="neu">—</td></tr>`;
+tbody.innerHTML+=`<tr class="cash-row"><td class="muted">—</td><td class="mono">CASH</td><td colspan="2">Idle cash balance</td><td style="text-align:right;color:#898781;font-family:monospace;font-size:12px">0.2%</td><td style="text-align:right">$156,026</td><td style="text-align:right" class="neu">—</td><td style="text-align:right"><span class="badge badge-neu">—</span></td><td style="text-align:right" class="neu">—</td></tr>`;
 
-// Cumulative: Jun30=1.34, Jul1=4.27, Jul2=-0.03, Jul3=-2.33, Jul7=-1.65, Jul8=0.49, Jul9=1.49, Jul10=1.47, Jul13=-0.84 (Book 2.2 restructure day), Jul15=-0.57, Jul16=-3.09, Jul17=-3.70, Jul20=-3.53, Jul21=-0.70, Jul22=-0.59
-// ACWI: 1.00, 1.74, 1.20, 1.22, 0.26, -0.10, 0.62, 1.04, -0.07, 0.94, 0.19, -0.68, -1.02, 0.14, 0.08
-const historyLabels=['Jun 30','Jul 1','Jul 2','Jul 3','Jul 7','Jul 8','Jul 9','Jul 10','Jul 13','Jul 15','Jul 16','Jul 17','Jul 20','Jul 21','Jul 22'];
-const historyValues=[101.34,104.27,99.97,97.67,98.35,100.49,101.49,101.47,99.16,99.43,96.91,96.30,96.47,99.30,99.41];
-const historyPL=[1.34,4.27,-0.03,-2.33,-1.65,0.49,1.49,-0.02,-2.31,0.27,-2.52,-0.61,0.17,2.83,0.11];
-const portfolioCumReturn=[1.34,4.27,-0.03,-2.33,-1.65,0.49,1.49,1.47,-0.84,-0.57,-3.09,-3.70,-3.53,-0.70,-0.59];
-const benchmarkCumReturn=[1.00,1.74,1.20,1.22,0.26,-0.10,0.62,1.04,-0.07,0.94,0.19,-0.68,-1.02,0.14,0.08];
+// Cumulative: Jun30=1.34, Jul1=4.27, Jul2=-0.03, Jul3=-2.33, Jul7=-1.65, Jul8=0.49, Jul9=1.49, Jul10=1.47, Jul13=-0.84 (Book 2.2 restructure day), Jul15=-0.57, Jul16=-3.09, Jul17=-3.70, Jul20=-3.53, Jul21=-0.70, Jul22=-0.59, Jul23=-1.02
+// ACWI: 1.00, 1.74, 1.20, 1.22, 0.26, -0.10, 0.62, 1.04, -0.07, 0.94, 0.19, -0.68, -1.02, 0.14, 0.08, -1.10
+const historyLabels=['Jun 30','Jul 1','Jul 2','Jul 3','Jul 7','Jul 8','Jul 9','Jul 10','Jul 13','Jul 15','Jul 16','Jul 17','Jul 20','Jul 21','Jul 22','Jul 23'];
+const historyValues=[101.34,104.27,99.97,97.67,98.35,100.49,101.49,101.47,99.16,99.43,96.91,96.30,96.47,99.30,99.41,98.98];
+const historyPL=[1.34,4.27,-0.03,-2.33,-1.65,0.49,1.49,-0.02,-2.31,0.27,-2.52,-0.61,0.17,2.83,0.11,-0.43];
+const portfolioCumReturn=[1.34,4.27,-0.03,-2.33,-1.65,0.49,1.49,1.47,-0.84,-0.57,-3.09,-3.70,-3.53,-0.70,-0.59,-1.02];
+const benchmarkCumReturn=[1.00,1.74,1.20,1.22,0.26,-0.10,0.62,1.04,-0.07,0.94,0.19,-0.68,-1.02,0.14,0.08,-1.10];
 
 const gridColor='rgba(180,178,169,0.2)',tickColor='#898781';
 
